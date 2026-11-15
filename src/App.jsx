@@ -1,13 +1,39 @@
+import { projects } from './data/projects.js'
+import About from './sections/About.jsx'
+import Contact from './sections/Contact.jsx'
+import Hero from './sections/Hero.jsx'
+import Projects from './sections/Projects.jsx'
+import Skills from './sections/Skills.jsx'
+
+const currentYear = new Date().getFullYear()
+
 function App() {
   return (
-    <main>
-      <h1>Your Name</h1>
-      <p>Welcome to my portfolio. Edit this page to make it your own.</p>
-      <h2>About</h2>
-      <p>Introduce yourself and share what you do.</p>
-      <h2>Projects</h2>
-      <p>Add your projects here.</p>
-    </main>
+    <>
+      <header className="site-header">
+        <a className="brand" href="#top" aria-label="Niilo Hanni home">
+          NH
+        </a>
+        <nav aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <Hero />
+        <About />
+        <Projects projects={projects} />
+        <Skills />
+        <Contact />
+      </main>
+
+      <footer>
+        <p>© {currentYear} Niilo Hanni</p>
+        <a href="#top">Back to top ↑</a>
+      </footer>
+    </>
   )
 }
 
