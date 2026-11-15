@@ -1,16 +1,476 @@
+@import url('https://fonts.googleapis.com/css2?family=Text+Me+One&display=swap');
 :root {
-  font-family: system-ui, sans-serif;
-  line-height: 1.5;
-  color: #172033;
-  background: #f7f8fc;
+  color: #f1ecff;
+  background: #07050d;
+  font-family: "Text Me One", sans-serif;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
+  min-width: 320px;
 }
 
-main {
-  max-width: 48rem;
+body::before {
+  content: "";
+  inset: 0;
+  opacity: 0.32;
+  pointer-events: none;
+  position: fixed;
+  z-index: 5;
+}
+
+a {
+  color: inherit;
+}
+
+.site-header,
+main,
+footer {
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 4rem 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.site-header {
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 180, 180, 0.25);
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1.15rem;
+  padding-top: 1.15rem;
+}
+
+.brand {
+  align-items: center;
+  background: #ff0000;
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  color: #09070e;
+  display: flex;
+  font-family: "Text Me One", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  height: 2.45rem;
+  justify-content: center;
+  letter-spacing: 0.08em;
+  padding-right: 0.25rem;
+  text-decoration: none;
+  width: 3.2rem;
+}
+
+nav {
+  display: flex;
+  gap: 1.75rem;
+}
+
+nav a,
+.text-link {
+  color: #d7d0e8;
+  font-family: "Text Me One", sans-serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+nav a:hover,
+.text-link:hover,
+footer a:hover {
+  color: #ff0000;
+}
+
+.hero {
+  align-items: center;
+  display: grid;
+  gap: clamp(2rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.6fr);
+  min-height: min(720px, calc(100vh - 75px));
+  padding: clamp(5rem, 13vw, 10.5rem) 0 5rem;
+  position: relative;
+}
+
+.hero-content {
+  min-width: 0;
+}
+
+.hero-portrait {
+  border: 1px solid rgba(255, 180, 180, 0.5);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2rem), calc(100% - 2rem) 100%, 0 100%);
+  display: block;
+  height: min(48vw, 500px);
+  justify-self: end;
+  object-fit: cover;
+  object-position: center;
+  width: min(36vw, 390px);
+}
+
+.eyebrow,
+.project-status {
+  color: #ff348c;
+  font-family: "Text Me One", sans-serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.12em;
+  margin: 0 0 1.5rem;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  color: #b27c85;
+  content: "// ";
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(2rem, 12.5vw, 8.5rem);
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 0.74;
+  margin-bottom: 2.25rem;
+  max-width: 930px;
+  position: relative;
+  z-index: 1;
+}
+
+h1 span {
+  color: #ff7171;
+  display: block;
+}
+
+.hero-copy {
+  color: #d1b9b9;
+  font-size: 1.2rem;
+  line-height: 1.45;
+  max-width: 460px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-actions {
+  align-items: center;
+  display: flex;
+  gap: 1.75rem;
+  margin-top: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.button {
+  background: #ff0000;
+  border: 1px solid #ffffff;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.65rem) 100%, 0 100%);
+  color: #08060d;
+  display: inline-block;
+  font-family: "Text Me One", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  padding: 1rem 1.3rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.button:hover {
+  background: transparent;
+  color: #ff0000;
+}
+
+.section {
+  border-top: 1px solid rgba(202, 180, 255, 0.25);
+  padding: clamp(5rem, 9vw, 8rem) 0;
+}
+
+.split-heading,
+.section-intro {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+h2 {
+  font-size: clamp(2rem, 6.5vw, 3.5em);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 0.78;
+  margin-bottom: 0;
+}
+
+.split-heading > div,
+.section-intro > p {
+  color: #c1b9d1;
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.split-heading p:last-child {
+  margin-bottom: 0;
+}
+
+.section-intro {
+  align-items: end;
+  margin-bottom: 3rem;
+}
+
+.section-intro > p {
+  margin: 0;
+  max-width: 400px;
+}
+
+.project-tabs {
+  border-bottom: 1px solid rgba(202, 180, 255, 0.25);
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.project-tab {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: #8e7cb2;
+  cursor: pointer;
+  font-family: "Text Me One", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  margin-bottom: -1px;
+  padding: 0 0 0.85rem;
+  text-transform: uppercase;
+}
+
+.project-tab:hover,
+.project-tab[aria-selected="true"] {
+  border-bottom-color: #ff0000;
+  color: #f1ecff;
+}
+
+.project-tab:focus-visible {
+  outline: 2px solid #ff348c;
+  outline-offset: 0.35rem;
+}
+
+.project-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.project-card {
+  background: #100d19;
+  border: 1px solid rgba(202, 180, 255, 0.25);
+  min-width: 0;
+  position: relative;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.project-link {
+  display: block;
+  text-decoration: none;
+}
+
+.project-card:hover {
+  border-color: #ff0000;
+  transform: translateY(-0.4rem);
+}
+
+.project-art {
+  display: flex;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+.project-content {
+  padding: 1.5rem;
+}
+
+.project-status {
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.7rem;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  margin-bottom: 0.75rem;
+}
+
+.project-content > p:not(.project-status) {
+  color: #c1b9d1;
+  line-height: 1.45;
+  min-height: 3.2em;
+}
+
+.project-content ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+
+.project-content li {
+  border: 1px solid #6d4c4c;
+  color: #e8d0d0;
+  font-family: "Text Me One", sans-serif;
+  font-size: 0.62rem;
+  padding: 0.35rem 0.55rem;
+  text-transform: uppercase;
+}
+
+.skills dl {
+  border-top: 1px solid rgba(255, 180, 180, 0.25);
+  margin: 3rem 0 0;
+}
+
+.skills dl > div {
+  border-bottom: 1px solid rgba(255, 180, 180, 0.25);
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 2fr;
+  padding: 1.25rem 0;
+}
+
+dt {
+  color: #ff3737b0;
+  font-family: "Text Me One", sans-serif;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+dd {
+  color: #d7d0e8;
+  margin: 0;
+}
+
+.contact {
+  background:
+    linear-gradient(135deg, transparent 70%, rgba(255, 0, 0, 0.12) 70%),
+    #ff6f6f;
+  color: #0a0710;
+  margin: 0 calc(50% - 50vw);
+  padding: clamp(5rem, 9vw, 8rem) max(2rem, calc((100vw - 1280px) / 2));
+}
+
+.contact .eyebrow {
+  color: #0a0710;
+}
+
+.contact .eyebrow::before {
+  color: #38255e;
+}
+
+.contact h2 {
+  max-width: 760px;
+}
+
+.contact > p:not(.eyebrow) {
+  font-size: 1.18rem;
+  line-height: 1.5;
+  margin: 1.5rem 0 2rem;
+  max-width: 500px;
+}
+
+.button-light {
+  background: #0a0710;
+  border-color: #0a0710;
+  color: #f1ecff;
+}
+
+.button-light:hover {
+  background: transparent;
+  color: #0a0710;
+}
+
+footer {
+  align-items: center;
+  color: #8e7cb2;
+  display: flex;
+  font-family: "Text Me One", sans-serif;
+  font-size: 0.67rem;
+  justify-content: space-between;
+  letter-spacing: 0.04em;
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
+  text-transform: uppercase;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .site-header,
+  main,
+  footer {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  nav {
+    gap: 1rem;
+  }
+
+  nav a {
+    font-size: 0.6rem;
+  }
+
+  .hero {
+    display: block;
+    min-height: 0;
+  }
+
+  .hero-portrait {
+    height: min(110vw, 480px);
+    margin: 3rem 0 0 auto;
+    width: min(82vw, 390px);
+  }
+
+  .split-heading,
+  .section-intro,
+  .project-grid,
+  .skills dl > div {
+    grid-template-columns: 1fr;
+  }
+
+  .split-heading,
+  .section-intro {
+    gap: 1.5rem;
+  }
+
+  .project-art {
+    height: 220px;
+  }
+
+  .contact {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 }
