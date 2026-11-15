@@ -12,10 +12,10 @@ function Hero() {
           <span>Game & Backend Developer</span>
         </h2>
         <p className="hero-copy">
-          Very experienced in game development and design.
+          Game developer with more than a decade of experience building in Unity.
         </p>
         <p className="hero-copy">
-          I'm a skilled person studying information technology at Oulu University of Applied Sciences.
+          Information technology student at Oulu University of Applied Sciences since 2024.
         </p>
         <div className="hero-actions">
           <a className="button" href="#projects">

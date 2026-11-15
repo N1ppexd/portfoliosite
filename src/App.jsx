@@ -1,4 +1,4 @@
-import { projects } from './data/projects.js'
+import { projectSections } from './data/projects.js'
 import About from './sections/About.jsx'
 import Contact from './sections/Contact.jsx'
 import Hero from './sections/Hero.jsx'
@@ -24,7 +24,7 @@ function App() {
       <main id="top">
         <Hero />
         <About />
-        <Projects projects={projects} />
+        <Projects sections={projectSections} />
         <Skills />
         <Contact />
       </main>

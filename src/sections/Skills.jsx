@@ -1,7 +1,8 @@
 const skills = [
-  ['Frontend', 'React, accessible HTML, responsive CSS'],
-  ['Workflow', 'Git, GitHub, iterative product thinking'],
-  ['Focus', 'Clear interfaces and useful user experiences'],
+  ['Game development', 'Unity, C#, Blender, game design, and game UI design'],
+  ['Backend', 'TypeScript and Nakama backend updates for live service games'],
+  ['Mobile apps', 'React Native and AI-assisted study helper app development'],
+  ['Collaboration', 'Indie game teams, problem-solving, and refactoring'],
 ]
 
 function Skills() {

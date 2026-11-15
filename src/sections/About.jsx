@@ -3,15 +3,17 @@ function About() {
     <section className="section about" id="about" aria-labelledby="about-title">
       <p className="eyebrow">About</p>
       <div className="split-heading">
-        <h2 id="about-title">Building useful things for the web.</h2>
+        <h2 id="about-title">Making games since I was 13.</h2>
         <div>
           <p>
-            I’m Niilo Hanni, a developer who enjoys turning ideas into clear,
-            considered digital experiences.
+            I’m Niilo Hanni, a game developer with expertise in Unity, C#,
+            Blender, game design, and game UI design. I enjoy solving difficult
+            problems and working alongside talented indie game teams.
           </p>
           <p>
-            This portfolio is a growing collection of the work I’m proud to
-            share and the things I’m learning along the way.
+            In 2026, I worked as an intern at Seppo Gamesmiths Oy, updating and
+            refactoring the Nakama backend for Fusion Guards, a live service
+            game.
           </p>
         </div>
       </div>
