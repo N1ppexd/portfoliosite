@@ -1,7 +1,7 @@
 
 export default function TechnicalExpertise({ expertiseAreas }) {
 	return (
-		<section className="technical-expertise" id="expertise" aria-labelledby="expertise-title">
+		<section className="technical-expertise" id="expertise" aria-labelledby="expertise-title" href="#expertise">
 			<div className="technical-expertise__inner">
 				<header className="technical-expertise__header">
 					<p className="technical-expertise__eyebrow">How I work</p>

@@ -8,7 +8,7 @@ import Experience from './sections/Experience.jsx'
 import Hero from './sections/Hero.jsx'
 import Projects from './sections/Projects.jsx'
 import Skydiving from './sections/Skydiving.jsx'
-import TechnicalExpertise from './sections/technicalExpertise.jsx'
+import TechnicalExpertise from './sections/Expertise.jsx'
 import Skills from './sections/Skills.jsx'
 
 const currentYear = new Date().getFullYear()
@@ -16,13 +16,15 @@ const currentYear = new Date().getFullYear()
 function App() {
   return (
     <>
-      <header className="site-header">
+      <header className="site-header" >
         <a className="brand" href="#top" aria-label="Niilo Hanni home">
           NH
         </a>
         <nav aria-label="Main navigation">
           <a href="#about">About</a>
           <a href="#projects">Projects</a>
+          <a href="#expertise">Expertise</a>
+          <a href="#skills">Skills</a>
           <a href="#experience">Experience</a>
           <a href="#contact">Contact</a>
         </nav>

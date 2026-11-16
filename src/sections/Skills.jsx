@@ -1,6 +1,6 @@
 function Skills({ skills }) {
   return (
-    <section className="section skills" aria-labelledby="skills-title">
+    <section className="section skills" aria-labelledby="skills-title" id="skills" href="#skills">
       <p className="eyebrow">Capabilities</p>
       <h2 id="skills-title">My skills</h2>
       <dl>

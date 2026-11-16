@@ -69,10 +69,15 @@ footer {
 .site-header {
   align-items: center;
   border-bottom: 1px solid var(--color-border-warm);
+  backdrop-filter: blur(8px);
+  background: var(--color-background);
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   padding-bottom: 1.15rem;
   padding-top: 1.15rem;
+  position: sticky;
+  top: 0;
 }
 
 .brand {
@@ -149,9 +154,13 @@ footer a:hover {
   display: block;
   height: auto;
   width: 100%;
+
+  aspect-ratio: 658/493;
+  object-fit: contain;
 }
 
 .eyebrow,
+.technical-expertise__eyebrow,
 .project-status {
   color: var(--color-accent-pink);
   font-size: 0.67rem;
@@ -160,7 +169,8 @@ footer a:hover {
   text-transform: uppercase;
 }
 
-.eyebrow::before {
+.eyebrow::before,
+.technical-expertise__eyebrow::before {
   color: var(--color-eyebrow-prefix);
   content: "// ";
 }
@@ -231,9 +241,79 @@ h1 span {
   color: var(--color-accent);
 }
 
-.section {
+.section,
+.technical-expertise {
   border-top: 1px solid var(--color-border);
   padding: clamp(5rem, 9vw, 8rem) 0;
+}
+
+.technical-expertise__header {
+  margin-bottom: 3rem;
+  max-width: 720px;
+}
+
+.technical-expertise__header h2 {
+  line-height: 1;
+}
+
+.technical-expertise__intro {
+  color: var(--color-text-subtle);
+  font-size: 1.1rem;
+  line-height: 1.55;
+  margin: 1.5rem 0 0;
+  max-width: 500px;
+}
+
+.technical-expertise__grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.expertise-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 2px solid var(--color-accent);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+.expertise-card__number {
+  color: var(--color-accent-light);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 1.75rem;
+}
+
+.expertise-card h3 {
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  line-height: 1.1;
+}
+
+.expertise-card p {
+  color: var(--color-text-subtle);
+  flex: 1;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.expertise-card__topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.expertise-card__topics li {
+  border: 1px solid var(--color-tag-border);
+  color: var(--color-tag-text);
+  font-size: 0.62rem;
+  padding: 0.35rem 0.55rem;
+  text-transform: uppercase;
 }
 
 .split-heading,
@@ -241,6 +321,21 @@ h1 span {
   display: grid;
   gap: 3rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.split-content {
+  display: flex;
+  gap: 3rem;
+}
+
+.split-content > div {
+
+  color: var(--color-text);
+  font-size: 1.1rem;
+  margin-top: 4rem;
+  flex: 1;
+  min-width: 0;
+  overflow:hidden;
 }
 
 h2 {
@@ -299,6 +394,27 @@ h2 {
 }
 
 .project-tab:focus-visible {
+  outline: 2px solid var(--color-accent-pink);
+  outline-offset: 0.35rem;
+}
+
+.project-rotation-toggle {
+  background: transparent;
+  border: 0;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+  margin: -1.5rem 0 1.5rem;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.project-rotation-toggle:hover {
+  color: var(--color-accent);
+}
+
+.project-rotation-toggle:focus-visible {
   outline: 2px solid var(--color-accent-pink);
   outline-offset: 0.35rem;
 }
@@ -554,7 +670,18 @@ footer a {
   text-decoration: none;
 }
 
+@media (max-width: 900px) {
+  .technical-expertise__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 640px) {
+  .skydiving-position {
+    left: auto;
+    right: 14px;
+  }
+
   .site-header,
   main,
   footer {
@@ -584,6 +711,7 @@ footer a {
   .split-heading,
   .section-intro,
   .project-grid,
+  .technical-expertise__grid,
   .skills dl > div,
   .experience dl > div {
     grid-template-columns: 1fr;
