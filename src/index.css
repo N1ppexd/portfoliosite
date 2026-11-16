@@ -127,13 +127,28 @@ footer a:hover {
 
 .hero-portrait {
   border: 1px solid var(--color-border-warm-strong);
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2rem), calc(100% - 2rem) 100%, 0 100%);
   display: block;
   height: min(48vw, 500px);
   justify-self: end;
   object-fit: cover;
   object-position: center;
   width: min(36vw, 390px);
+}
+
+.skydiving-position {
+  opacity: 0.8;
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  top: 5vh;
+  width: clamp(56px, 8vw, 110px);
+  z-index: 4;
+}
+
+.skydiver {
+  display: block;
+  height: auto;
+  width: 100%;
 }
 
 .eyebrow,
@@ -200,7 +215,6 @@ h1 span {
 .button {
   background: var(--color-accent);
   border: 1px solid var(--color-text);
-  clip-path: polygon(0 0, 100% 0, calc(100% - 0.65rem) 100%, 0 100%);
   color: var(--color-button-ink);
   display: inline-block;
   font-size: 0.7rem;

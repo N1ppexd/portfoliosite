@@ -3,7 +3,7 @@ function About() {
     <section className="section about" id="about" aria-labelledby="about-title">
       <p className="eyebrow">About</p>
       <div className="split-heading">
-        <h2 id="about-title">Making games since I was 13.</h2>
+        <h2 id="about-title">I love technology and games.</h2>
         <div>
           <p>
             I’m Niilo Hanni, a game developer with expertise in Unity, C#,

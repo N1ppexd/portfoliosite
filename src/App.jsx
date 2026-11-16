@@ -1,11 +1,14 @@
 import { projectSections } from './data/projects.js'
 import { experience } from './data/experience.js'
 import { skills } from './data/skills.js'
+import { expertiseAreas } from './data/techexpertise.js'
 import About from './sections/About.jsx'
 import Contact from './sections/Contact.jsx'
 import Experience from './sections/Experience.jsx'
 import Hero from './sections/Hero.jsx'
 import Projects from './sections/Projects.jsx'
+import Skydiving from './sections/Skydiving.jsx'
+import TechnicalExpertise from './sections/technicalExpertise.jsx'
 import Skills from './sections/Skills.jsx'
 
 const currentYear = new Date().getFullYear()
@@ -25,10 +28,12 @@ function App() {
         </nav>
       </header>
 
+      <Skydiving />
       <main id="top">
         <Hero />
         <About />
         <Projects sections={projectSections} />
+        <TechnicalExpertise expertiseAreas={expertiseAreas} />
         <Skills skills={skills} />
         <Experience experience={experience} />
         <Contact />

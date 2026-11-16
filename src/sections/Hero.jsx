@@ -9,7 +9,7 @@ function Hero() {
           Niilo Hanni
         </h1>
         <h2>
-          <span>Game & Backend Developer</span>
+          <span>Developer & student</span>
         </h2>
         <p className="hero-copy">
           Game developer with more than a decade of experience building in Unity.
@@ -19,10 +19,10 @@ function Hero() {
         </p>
         <div className="hero-actions">
           <a className="button" href="#projects">
-            View selected work <span aria-hidden="true">↓</span>
+            View my work <span aria-hidden="true">↓</span>
           </a>
           <a className="text-link" href="#contact">
-            Get in touch
+            Contact me
           </a>
         </div>
       </div>
