@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 const ROTATION_DELAY = 10_000
 
-function renderInlineMarkdown(text) {
+function renderInlineHighlight(text) {
   return text.split(/(\{[^}]+\})/g).map((part, index) => {
     if (part.startsWith('{') && part.endsWith('}')) {
       return <mark className="project-emphasis" key={`${part}-${index}`}>{part.slice(1, -1)}</mark>
@@ -201,7 +201,7 @@ function Projects({ sections }) {
             <div className="project-dialog-content">
               <p className="project-status">{selectedProject.status}</p>
               <h3 id="project-details-title">{selectedProject.title}</h3>
-              <p>{renderInlineMarkdown(selectedProject.description)}</p>
+              <p>{renderInlineHighlight(selectedProject.description)}</p>
               {selectedProject.stack.length > 0 && (
                 <ul aria-label={`${selectedProject.title} technologies`}>
                   {selectedProject.stack.map((item) => (
