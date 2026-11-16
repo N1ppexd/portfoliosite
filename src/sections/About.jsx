@@ -3,8 +3,8 @@ function About() {
     <section className="section about" id="about" aria-labelledby="about-title">
       <p className="eyebrow">About</p>
       <h2 id="about-title">I love technology and games.</h2>
-      <div className="split-content">
-        <div >
+      <div className="about-content">
+        <div className="about-card">
           <p>
             I'm Niilo Hanni, a game developer with expertise in Unity, C#,
             Blender, game design, and game UI design. I enjoy solving difficult
@@ -15,7 +15,7 @@ function About() {
             Then I started tinkering with Arduino and 3D-printing, but sticked primarily to game development.
           </p>
         </div>
-        <div >
+        <div className="about-card">
           <p>
             In 2026, I worked as an intern at Seppo Gamesmiths Oy, updating and
             refactoring the Nakama backend for Fusion Guards, a live service
@@ -27,8 +27,6 @@ function About() {
             practical engineering skills in new industries.
           </p>
         </div>
-        
-        
       </div>
     </section>
   )
