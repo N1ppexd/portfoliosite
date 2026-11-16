@@ -15,6 +15,9 @@ function Hero() {
           Game developer with more than a decade of experience building in Unity.
         </p>
         <p className="hero-copy">
+          Also highly interested in other areas of technology and software development.
+        </p>
+        <p className="hero-copy">
           Information technology student at Oulu University of Applied Sciences since 2024.
         </p>
         <div className="hero-actions">

@@ -11,8 +11,11 @@ function About() {
             problems and working alongside talented indie game teams.
           </p>
           <p>
-            I Started programming at 13 years old, because I wanted to learn to make games. 
-            Then I started tinkering with Arduino and 3D-printing, but sticked primarily to game development.
+            I started programming at 13 years old, because I wanted to learn to make games. 
+            Then I started tinkering with Arduino and 3D-printing, but stuck primarily to game development.
+          </p>
+          <p>
+            During my free time, I enjoy hobbies such as skydiving, rock climbing and snowboarding.
           </p>
         </div>
         <div className="about-card">

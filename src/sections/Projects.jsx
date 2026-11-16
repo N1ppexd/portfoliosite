@@ -2,6 +2,16 @@ import { useEffect, useRef, useState } from 'react'
 
 const ROTATION_DELAY = 10_000
 
+function renderInlineMarkdown(text) {
+  return text.split(/(\{[^}]+\})/g).map((part, index) => {
+    if (part.startsWith('{') && part.endsWith('}')) {
+      return <mark className="project-emphasis" key={`${part}-${index}`}>{part.slice(1, -1)}</mark>
+    }
+
+    return part
+  })
+}
+
 function Projects({ sections }) {
   const [activeSectionId, setActiveSectionId] = useState(sections[0].id)
   const [selectedProject, setSelectedProject] = useState(null)
@@ -149,7 +159,7 @@ function Projects({ sections }) {
               <div className="project-content">
                 <p className="project-status">{project.status}</p>
                 <h3>{project.title}</h3>
-                <p>View project details</p>
+                <p>{project.smallDescription ?? "View project details"}</p>
                 {
                   project.stack.length > 0 && (
                     <ul aria-label={`${project.title} technologies`}>
@@ -191,7 +201,7 @@ function Projects({ sections }) {
             <div className="project-dialog-content">
               <p className="project-status">{selectedProject.status}</p>
               <h3 id="project-details-title">{selectedProject.title}</h3>
-              <p>{selectedProject.description}</p>
+              <p>{renderInlineMarkdown(selectedProject.description)}</p>
               {selectedProject.stack.length > 0 && (
                 <ul aria-label={`${selectedProject.title} technologies`}>
                   {selectedProject.stack.map((item) => (

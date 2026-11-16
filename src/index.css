@@ -498,6 +498,12 @@ h3 {
   min-height: 3.2em;
 }
 
+.project-emphasis {
+  background: var(--color-accent);
+  color: var(--color-button-ink);
+  padding: 0 0.15em;
+}
+
 .experience-term {
   font-weight: bold;
   font-size: 1.2rem;
