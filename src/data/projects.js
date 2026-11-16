@@ -13,8 +13,9 @@ export const projectSections = [
     projects: [
       {
         title: 'Shifter',
-        description: 'Gravity Shifting third person roguelike game',
-        stack: ['Unity', 'C#'],
+        description:
+          'A gravity-shifting third-person roguelike. I built procedural and world graph generation, save and achievement systems, NPC behaviour, combat, parrying, and leaderboards.',
+        stack: ['Unity', 'C#', 'Procedural generation', 'Combat systems'],
         status: 'In progress',
         image: shifterCapsule,
         url: 'https://store.steampowered.com/app/1683390/Shifter/',
@@ -22,8 +23,8 @@ export const projectSections = [
       {
         title: 'Froggy Daycare',
         description:
-          'A daycare management game where you take care of frogs and their needs.',
-        stack: ['Unity', 'C#'],
+          'A daycare management game where players care for frogs and their needs. I developed frog behaviour, a frog state machine, needs such as hunger and hygiene, and a virtual reality version.',
+        stack: ['Unity', 'C#', 'State machines', 'Virtual reality'],
         status: 'Coming soon',
         image: froggyDaycareCapsule,
         url: 'https://store.steampowered.com/app/4521720/Froggy_Daycare/',
@@ -38,16 +39,18 @@ export const projectSections = [
     projects: [
       {
         title: 'Getting Rid Of It',
-        description: 'Get rid of a body and do not get caught.',
-        stack: [],
+        description:
+          'Get rid of a body without getting caught. I created activities such as cleaning and chopping, a dialogue system with tools for game writers, and a suspicion meter.',
+        stack: ['Game systems', 'Dialogue tools'],
         status: 'Play in browser',
         image: gettingRidOfItCapsule,
         url: 'https://n1ppe.itch.io/getting-rid-of-it',
       },
       {
         title: 'Nuclear Fall',
-        description: 'A browser game available on itch.io.',
-        stack: [],
+        description:
+          'A browser game with procedural terrain generation on a hexagonal grid. I added A* roads between towns, a flexible dice simulator, and tile-triggered events.',
+        stack: ['Procedural generation', 'A* pathfinding', 'Hex grids'],
         status: 'Play in browser',
         image: nuclearFallCapsule,
         url: 'https://n1ppe.itch.io/nuclear-fall',

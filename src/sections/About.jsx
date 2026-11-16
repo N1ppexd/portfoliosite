@@ -15,6 +15,11 @@ function About() {
             refactoring the Nakama backend for Fusion Guards, a live service
             game.
           </p>
+          <p>
+            I stay active in the games industry through events and networking,
+            including Umeå Game Conference in 2026. I am also keen to apply my
+            practical engineering skills in new industries.
+          </p>
         </div>
       </div>
     </section>

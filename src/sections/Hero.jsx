@@ -4,7 +4,7 @@ function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-content">
-        <p className="eyebrow">Portfolio / 2026</p>
+        <p className="eyebrow">Portfolio</p>
         <h1 id="hero-title">
           Niilo Hanni
         </h1>

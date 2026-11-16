@@ -1,8 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Text+Me+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Text+Me+One&display=swap');
 :root {
-  color: #f1ecff;
-  background: #07050d;
-  font-family: "Text Me One", sans-serif;
+  --color-background: #07050d;
+  --color-surface: #100d19;
+  --color-text: #f1ecff;
+  --color-text-muted: #d7d0e8;
+  --color-text-subtle: #c1b9d1;
+  --color-text-dim: #8e7cb2;
+  --color-hero-copy: #d1b9b9;
+  --color-accent: #ff3c3c;
+  --color-accent-light: #ff7171;
+  --color-accent-pink: #ff348c;
+  --color-accent-soft: #fff2f2;
+  --color-accent-dim: #ff3737b0;
+  --color-accent-overlay: rgb(255 0 0 / 12%);
+  --color-dialog-backdrop: rgb(7 5 13 / 85%);
+  --color-ink: #0a0710;
+  --color-brand-ink: #09070e;
+  --color-button-ink: #08060d;
+  --color-border: rgba(202, 180, 255, 0.25);
+  --color-border-warm: rgba(255, 180, 180, 0.25);
+  --color-border-warm-strong: rgba(255, 180, 180, 0.5);
+  --color-tag-border: #6d4c4c;
+  --color-tag-text: #e8d0d0;
+  --color-eyebrow-prefix: #b27c85;
+  --color-contact-prefix: #38255e;
+
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: "Roboto", sans-serif;
   font-synthesis: none;
 }
 
@@ -43,7 +68,7 @@ footer {
 
 .site-header {
   align-items: center;
-  border-bottom: 1px solid rgba(255, 180, 180, 0.25);
+  border-bottom: 1px solid var(--color-border-warm);
   display: flex;
   justify-content: space-between;
   padding-bottom: 1.15rem;
@@ -52,11 +77,10 @@ footer {
 
 .brand {
   align-items: center;
-  background: #ff0000;
+  background: var(--color-accent);
   clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
-  color: #09070e;
+  color: var(--color-brand-ink);
   display: flex;
-  font-family: "Text Me One", sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
   height: 2.45rem;
@@ -74,8 +98,7 @@ nav {
 
 nav a,
 .text-link {
-  color: #d7d0e8;
-  font-family: "Text Me One", sans-serif;
+  color: var(--color-text-muted);
   font-size: 0.67rem;
   letter-spacing: 0.08em;
   text-decoration: none;
@@ -85,7 +108,7 @@ nav a,
 nav a:hover,
 .text-link:hover,
 footer a:hover {
-  color: #ff0000;
+  color: var(--color-accent);
 }
 
 .hero {
@@ -103,7 +126,7 @@ footer a:hover {
 }
 
 .hero-portrait {
-  border: 1px solid rgba(255, 180, 180, 0.5);
+  border: 1px solid var(--color-border-warm-strong);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2rem), calc(100% - 2rem) 100%, 0 100%);
   display: block;
   height: min(48vw, 500px);
@@ -115,8 +138,7 @@ footer a:hover {
 
 .eyebrow,
 .project-status {
-  color: #ff348c;
-  font-family: "Text Me One", sans-serif;
+  color: var(--color-accent-pink);
   font-size: 0.67rem;
   letter-spacing: 0.12em;
   margin: 0 0 1.5rem;
@@ -124,7 +146,7 @@ footer a:hover {
 }
 
 .eyebrow::before {
-  color: #b27c85;
+  color: var(--color-eyebrow-prefix);
   content: "// ";
 }
 
@@ -153,12 +175,12 @@ h1 {
 }
 
 h1 span {
-  color: #ff7171;
+  color: var(--color-accent-light);
   display: block;
 }
 
 .hero-copy {
-  color: #d1b9b9;
+  color: var(--color-hero-copy);
   font-size: 1.2rem;
   line-height: 1.45;
   max-width: 460px;
@@ -176,12 +198,11 @@ h1 span {
 }
 
 .button {
-  background: #ff0000;
-  border: 1px solid #ffffff;
+  background: var(--color-accent);
+  border: 1px solid var(--color-text);
   clip-path: polygon(0 0, 100% 0, calc(100% - 0.65rem) 100%, 0 100%);
-  color: #08060d;
+  color: var(--color-button-ink);
   display: inline-block;
-  font-family: "Text Me One", sans-serif;
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.07em;
@@ -193,11 +214,11 @@ h1 span {
 
 .button:hover {
   background: transparent;
-  color: #ff0000;
+  color: var(--color-accent);
 }
 
 .section {
-  border-top: 1px solid rgba(202, 180, 255, 0.25);
+  border-top: 1px solid var(--color-border);
   padding: clamp(5rem, 9vw, 8rem) 0;
 }
 
@@ -218,7 +239,7 @@ h2 {
 
 .split-heading > div,
 .section-intro > p {
-  color: #c1b9d1;
+  color: var(--color-text-subtle);
   font-size: 1.1rem;
   line-height: 1.55;
 }
@@ -238,7 +259,7 @@ h2 {
 }
 
 .project-tabs {
-  border-bottom: 1px solid rgba(202, 180, 255, 0.25);
+  border-bottom: 1px solid var(--color-border);
   display: flex;
   gap: 1.5rem;
   margin-bottom: 3rem;
@@ -248,9 +269,8 @@ h2 {
   background: transparent;
   border: 0;
   border-bottom: 2px solid transparent;
-  color: #8e7cb2;
+  color: var(--color-text-dim);
   cursor: pointer;
-  font-family: "Text Me One", sans-serif;
   font-size: 0.7rem;
   letter-spacing: 0.08em;
   margin-bottom: -1px;
@@ -260,12 +280,12 @@ h2 {
 
 .project-tab:hover,
 .project-tab[aria-selected="true"] {
-  border-bottom-color: #ff0000;
-  color: #f1ecff;
+  border-bottom-color: var(--color-accent);
+  color: var(--color-text);
 }
 
 .project-tab:focus-visible {
-  outline: 2px solid #ff348c;
+  outline: 2px solid var(--color-accent-pink);
   outline-offset: 0.35rem;
 }
 
@@ -276,21 +296,33 @@ h2 {
 }
 
 .project-card {
-  background: #100d19;
-  border: 1px solid rgba(202, 180, 255, 0.25);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   min-width: 0;
   position: relative;
   transition: border-color 180ms ease, transform 180ms ease;
 }
 
-.project-link {
+.project-card-button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
   display: block;
-  text-decoration: none;
+  padding: 0;
+  text-align: left;
+  width: 100%;
 }
 
-.project-card:hover {
-  border-color: #ff0000;
+.project-card:hover,
+.project-card:focus-within {
+  border-color: var(--color-accent);
   transform: translateY(-0.4rem);
+}
+
+.project-card-button:focus-visible {
+  outline: 2px solid var(--color-accent-pink);
+  outline-offset: -0.5rem;
 }
 
 .project-art {
@@ -318,12 +350,12 @@ h3 {
 }
 
 .project-content > p:not(.project-status) {
-  color: #c1b9d1;
+  color: var(--color-text-subtle);
   line-height: 1.45;
   min-height: 3.2em;
 }
 
-.project-content ul {
+.project-dialog-content ul {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
@@ -332,22 +364,81 @@ h3 {
   padding: 0;
 }
 
-.project-content li {
-  border: 1px solid #6d4c4c;
-  color: #e8d0d0;
-  font-family: "Text Me One", sans-serif;
+.project-dialog-content li {
+  border: 1px solid var(--color-tag-border);
+  color: var(--color-tag-text);
   font-size: 0.62rem;
   padding: 0.35rem 0.55rem;
   text-transform: uppercase;
 }
 
-.skills dl {
-  border-top: 1px solid rgba(255, 180, 180, 0.25);
+.project-dialog-backdrop {
+  align-items: center;
+  background: var(--color-dialog-backdrop);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 1.5rem;
+  position: fixed;
+  z-index: 10;
+}
+
+.project-dialog {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-warm-strong);
+  max-height: min(700px, calc(100vh - 3rem));
+  max-width: 760px;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+
+.project-dialog-close {
+  background: var(--color-ink);
+  border: 0;
+  color: var(--color-text);
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  position: absolute;
+  right: 0;
+  text-transform: uppercase;
+  top: 0;
+}
+
+.project-dialog-close:focus-visible {
+  outline: 2px solid var(--color-accent-pink);
+  outline-offset: -0.25rem;
+}
+
+.project-dialog-art {
+  display: block;
+  max-height: 340px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.project-dialog-content {
+  padding: 2rem;
+}
+
+.project-dialog-content > p:not(.project-status) {
+  color: var(--color-text-subtle);
+  line-height: 1.55;
+}
+
+.project-dialog-content .button {
+  margin-top: 1.5rem;
+}
+
+.skills dl,
+.experience dl {
+  border-top: 1px solid var(--color-border-warm);
   margin: 3rem 0 0;
 }
 
-.skills dl > div {
-  border-bottom: 1px solid rgba(255, 180, 180, 0.25);
+.skills dl > div,
+.experience dl > div {
+  border-bottom: 1px solid var(--color-border-warm);
   display: grid;
   gap: 2rem;
   grid-template-columns: 1fr 2fr;
@@ -355,32 +446,31 @@ h3 {
 }
 
 dt {
-  color: #ff3737b0;
-  font-family: "Text Me One", sans-serif;
+  color: var(--color-accent-dim);
   font-size: 0.7rem;
   text-transform: uppercase;
 }
 
 dd {
-  color: #d7d0e8;
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 .contact {
   background:
-    linear-gradient(135deg, transparent 70%, rgba(255, 0, 0, 0.12) 70%),
-    #ff6f6f;
-  color: #0a0710;
+    linear-gradient(135deg, transparent 70%, var(--color-accent-overlay) 70%),
+    var(--color-accent-soft);
+  color: var(--color-ink);
   margin: 0 calc(50% - 50vw);
   padding: clamp(5rem, 9vw, 8rem) max(2rem, calc((100vw - 1280px) / 2));
 }
 
 .contact .eyebrow {
-  color: #0a0710;
+  color: var(--color-ink);
 }
 
 .contact .eyebrow::before {
-  color: #38255e;
+  color: var(--color-contact-prefix);
 }
 
 .contact h2 {
@@ -395,21 +485,20 @@ dd {
 }
 
 .button-light {
-  background: #0a0710;
-  border-color: #0a0710;
-  color: #f1ecff;
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-text);
 }
 
 .button-light:hover {
   background: transparent;
-  color: #0a0710;
+  color: var(--color-ink);
 }
 
 footer {
   align-items: center;
-  color: #8e7cb2;
+  color: var(--color-text-dim);
   display: flex;
-  font-family: "Text Me One", sans-serif;
   font-size: 0.67rem;
   justify-content: space-between;
   letter-spacing: 0.04em;
@@ -456,7 +545,8 @@ footer a {
   .split-heading,
   .section-intro,
   .project-grid,
-  .skills dl > div {
+  .skills dl > div,
+  .experience dl > div {
     grid-template-columns: 1fr;
   }
 

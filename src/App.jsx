@@ -1,6 +1,9 @@
 import { projectSections } from './data/projects.js'
+import { experience } from './data/experience.js'
+import { skills } from './data/skills.js'
 import About from './sections/About.jsx'
 import Contact from './sections/Contact.jsx'
+import Experience from './sections/Experience.jsx'
 import Hero from './sections/Hero.jsx'
 import Projects from './sections/Projects.jsx'
 import Skills from './sections/Skills.jsx'
@@ -17,6 +20,7 @@ function App() {
         <nav aria-label="Main navigation">
           <a href="#about">About</a>
           <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
           <a href="#contact">Contact</a>
         </nav>
       </header>
@@ -25,7 +29,8 @@ function App() {
         <Hero />
         <About />
         <Projects sections={projectSections} />
-        <Skills />
+        <Skills skills={skills} />
+        <Experience experience={experience} />
         <Contact />
       </main>
 
