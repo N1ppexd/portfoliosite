@@ -355,7 +355,32 @@ h3 {
   min-height: 3.2em;
 }
 
+.project-content ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+
+.project-content li { 
+  border: 1px solid var(--color-tag-border);
+  color: var(--color-tag-text);
+  font-size: 0.62rem;
+  padding: 0.35rem 0.55rem;
+  text-transform: uppercase;
+}
+
+.experience-term {
+  font-weight: bold;
+  font-size: 1.2rem;
+  align-items: center;
+  display: flex;
+}
+
 .project-dialog-content ul {
+
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
@@ -462,7 +487,7 @@ dd {
     var(--color-accent-soft);
   color: var(--color-ink);
   margin: 0 calc(50% - 50vw);
-  padding: clamp(5rem, 9vw, 8rem) max(2rem, calc((100vw - 1280px) / 2));
+  padding: clamp(2rem, 9vw, 4rem) max(2rem, calc((100vw - 1280px) / 2));
 }
 
 .contact .eyebrow {

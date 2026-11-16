@@ -78,6 +78,15 @@ function Projects({ sections }) {
                 <p className="project-status">{project.status}</p>
                 <h3>{project.title}</h3>
                 <p>View project details</p>
+                {
+                  project.stack.length > 0 && (
+                    <ul aria-label={`${project.title} technologies`}>
+                      {project.stack.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  )
+                }
               </div>
             </button>
           </article>
