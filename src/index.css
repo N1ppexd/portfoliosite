@@ -594,6 +594,41 @@ h2 {
   width: 100%;
 }
 
+.project-art--fallback {
+  align-items: flex-end;
+  background:
+    linear-gradient(135deg, #25105f, #ff3c3c);
+  color: var(--color-text);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  padding: 1.5rem;
+  text-transform: uppercase;
+}
+
+.project-art--fallback-2 {
+  background:
+    linear-gradient(135deg, #4c1020, #ff4d5a);
+}
+
+.project-art--fallback-3 {
+  background:
+    linear-gradient(135deg, #5f102e, #ff348c);
+}
+
+.project-art--fallback-4 {
+  background:
+    linear-gradient(135deg, #1f1018, #b52e4c);
+}
+
+.project-dialog-art.project-art--fallback {
+  align-items: center;
+  height: 340px;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
 .project-content {
   padding: 1.5rem;
 }

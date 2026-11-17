@@ -15,7 +15,7 @@ export const expertiseAreas = [
 		number: "02",
 		title: "AI tools",
 		description:
-			"I explore where AI tools can support a creative workflow—from early experiments to repetitive tasks—while keeping the final decisions and direction in my hands.",
+			"I use AI tools, such as agents and custom skills, to perform tasks quicker and more efficiently.",
 		details: [
 			"I am interested in practical uses of AI that help people move from an idea to a working result faster. This includes experimenting with AI-assisted note taking for a React Native study helper.",
 			"I use AI as a support tool for research, prototyping, and repetitive development tasks, while keeping the final decisions, quality standards, and creative direction human-led.",

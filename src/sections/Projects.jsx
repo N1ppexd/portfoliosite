@@ -2,6 +2,29 @@ import { useEffect, useRef, useState } from 'react'
 
 const ROTATION_DELAY = 10_000
 
+function ProjectCover({ project, dialog = false }) {
+  if (project.image) {
+    return (
+      <img
+        className={dialog ? 'project-dialog-art' : 'project-art'}
+        src={project.image}
+        alt=""
+      />
+    )
+  }
+
+  const variant = (project.title.length % 4) + 1
+  return (
+    <div
+      aria-label={`${project.title} cover`}
+      className={`${dialog ? 'project-dialog-art' : 'project-art'} project-art--fallback project-art--fallback-${variant}`}
+      role="img"
+    >
+      <span>{project.title}</span>
+    </div>
+  )
+}
+
 function renderInlineHighlight(text) {
   return text.split(/(\{[^}]+\})/g).map((part, index) => {
     if (part.startsWith('{') && part.endsWith('}')) {
@@ -155,7 +178,7 @@ function Projects({ sections }) {
               }}
               type="button"
             >
-              <img className="project-art" src={project.image} alt="" />
+              <ProjectCover project={project} />
               <div className="project-content">
                 <p className="project-status">{project.status}</p>
                 <h3>{project.title}</h3>
@@ -197,7 +220,7 @@ function Projects({ sections }) {
             >
               Close
             </button>
-            <img className="project-dialog-art" src={selectedProject.image} alt="" />
+            <ProjectCover dialog project={selectedProject} />
             <div className="project-dialog-content">
               <p className="project-status">{selectedProject.status}</p>
               <h3 id="project-details-title">{selectedProject.title}</h3>
