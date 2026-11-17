@@ -6,6 +6,28 @@ import nuclearFallCapsule from '../pictures/nuclear-fall-capsule.png'
 import shifterCapsule from '../pictures/shifter-capsule.jpg'
 import swingSkateCapsule from '../pictures/swing-skate-capsule.gif'
 
+// Shifter gallery
+//import shifterGallery1 from '../pictures/Shifter/library_capsule_finalSeptember.png'
+import shifterGallery2 from '../pictures/Shifter/ShifterNewsPic.png'
+import shifterGallery3 from '../pictures/Shifter/ShifterBlueAreaScreenShot.png'
+import shifterGallery4 from '../pictures/Shifter/Näyttökuva 2025-01-30 114658.png'
+import shifterGallery5 from '../pictures/Shifter/ShifterExplosion.png'
+import shifterGallery6 from '../pictures/Shifter/graphStructure.png'
+
+// Nuclear Fall gallery
+import nuclearFallGallery1 from '../pictures/NuclearFall/Näyttökuva 2023-12-14 133448.png'
+import nuclearFallGallery2 from '../pictures/NuclearFall/Näyttökuva 2023-12-14 132614.png'
+import nuclearFallGallery3 from '../pictures/NuclearFall/Näyttökuva 2023-12-11 161927.png'
+import nuclearFallGallery4 from '../pictures/NuclearFall/Näyttökuva 2023-12-11 160846.png'
+import nuclearFallGallery5 from '../pictures/NuclearFall/Näyttökuva 2023-12-04 002132.png'
+import nuclearFallGallery6 from '../pictures/NuclearFall/Näyttökuva 2023-12-04 001928.png'
+
+// Froggy Daycare gallery
+import froggyGallery1 from '../pictures/FroggyDaycare/Näyttökuva 2026-10-11 191810.png'
+import froggyGallery2 from '../pictures/FroggyDaycare/Näyttökuva 2026-10-11 191658.png'
+import froggyGallery3 from '../pictures/FroggyDaycare/Näyttökuva 2026-10-11 174757.png'
+import froggyGallery4 from '../pictures/FroggyDaycare/FroggoDayCareLibraryLogo.png'
+
 export const projectSections = [
   {
     id: 'steam',
@@ -21,6 +43,7 @@ export const projectSections = [
         stack: ['Unity', 'C#', 'Procedural generation', 'Combat systems'],
         status: 'In progress',
         image: shifterCapsule,
+        gallery: [ shifterGallery2, shifterGallery3, shifterGallery4, shifterGallery5, shifterGallery6],
         url: 'https://store.steampowered.com/app/1683390/Shifter/',
       },
       {
@@ -31,6 +54,7 @@ export const projectSections = [
         stack: ['Unity', 'C#', 'State machines', 'Virtual reality'],
         status: 'Coming soon',
         image: froggyDaycareCapsule,
+        gallery: [froggyGallery1, froggyGallery2, froggyGallery3, froggyGallery4],
         url: 'https://store.steampowered.com/app/4521720/Froggy_Daycare/',
       },
     ],
@@ -59,6 +83,7 @@ export const projectSections = [
         stack: ['Procedural generation', 'A* pathfinding', 'Hex grids'],
         status: 'Play in browser',
         image: nuclearFallCapsule,
+        gallery: [nuclearFallGallery1, nuclearFallGallery2, nuclearFallGallery3, nuclearFallGallery4, nuclearFallGallery5, nuclearFallGallery6],
         url: 'https://n1ppe.itch.io/nuclear-fall',
       },
       {
