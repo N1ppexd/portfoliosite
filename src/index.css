@@ -306,6 +306,31 @@ h1 span {
   padding: clamp(1.5rem, 2.5vw, 2rem);
 }
 
+.expertise-card__button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.expertise-card:hover,
+.expertise-card:focus-within {
+  border-color: var(--color-accent);
+  transform: translateY(-0.4rem);
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.expertise-card__button:focus-visible {
+  outline: 2px solid var(--color-accent-pink);
+  outline-offset: -0.5rem;
+}
+
 .expertise-card__number {
   color: var(--color-accent-light);
   font-size: 0.75rem;
@@ -338,6 +363,14 @@ h1 span {
 
 .expertise-card__topics {
   margin-top: 1.5rem;
+}
+
+.expertise-card__prompt {
+  color: var(--color-accent-light);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  margin-top: 1.5rem;
+  text-transform: uppercase;
 }
 
 .expertise-card__topics li,
