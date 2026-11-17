@@ -26,7 +26,7 @@ function Contact() {
 
       <a
         className="button button-light"
-        href="https://www.linkedin.com/in/niilo-hanni/"
+        href="https://www.linkedin.com/in/niilo-hanni-992518257/"
         target="_blank"
         rel="noreferrer"
       >
