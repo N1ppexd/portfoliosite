@@ -67,15 +67,7 @@ export default function TechnicalExpertise({ expertiseAreas }) {
 						</article>
 					))}
 				</div>
-				<div className="procedural-graph-demo">
-					<p className="technical-expertise__eyebrow">System example</p>
-					<h3>Full generated level graph for Shifter</h3>
-					<p>This is how the world levels were structured in Shifter. This graph was generated at the start, and each node represents a level in the game world. 
-						Some levels we're procedurally generated, while others were designed manually to fit the game's narrative and gameplay requirements.
-						Each area in the graph corresponds to a different section of the game world, and the connections between nodes represent the progression from one level to the next.
-					</p>
-					<ProceduralGraph />
-				</div>
+				
 			</div>
 
 			{selectedArea && (
@@ -104,6 +96,18 @@ export default function TechnicalExpertise({ expertiseAreas }) {
 							{selectedArea.details.map((detail) => (
 								<p key={detail}>{detail}</p>
 							))}
+							{selectedArea.title === 'Procedural generation' && (
+								<div className="procedural-graph-demo">
+									<p className="technical-expertise__eyebrow">System example</p>
+									<h3>Full generated level graph for Shifter</h3>
+									<p>
+										This is how the world levels were structured in Shifter. This graph was generated at the start, and each node represents a level in the game world.
+										Some levels were procedurally generated, while others were designed manually to fit the game's narrative and gameplay requirements.
+										Each area in the graph corresponds to a different section of the game world, and the connections between nodes represent the progression from one level to the next.
+									</p>
+									<ProceduralGraph />
+								</div>
+							)}
 							<ul aria-label={`${selectedArea.title} topics`}>
 								{selectedArea.topics.map((topic) => (
 									<li key={topic}>{topic}</li>

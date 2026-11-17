@@ -699,6 +699,7 @@ h3 {
   right: 0;
   text-transform: uppercase;
   top: 0;
+  z-index: 11;
 }
 
 .project-dialog-close:focus-visible {
@@ -724,6 +725,88 @@ h3 {
 
 .project-dialog-content .button {
   margin-top: 1.5rem;
+}
+
+.project-gallery {
+  position: relative;
+  width: 100%;
+}
+
+.project-gallery-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.project-gallery-image {
+  display: block;
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-gallery-nav {
+  background: rgba(0, 0, 0, 0.5);
+  border: 0;
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  transition: background 150ms ease;
+}
+
+.project-gallery-nav:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.project-gallery-nav:focus-visible {
+  outline: 2px solid var(--color-accent-pink);
+  outline-offset: -0.25rem;
+}
+
+.project-gallery-prev {
+  left: 0;
+}
+
+.project-gallery-next {
+  right: 0;
+}
+
+.project-gallery-indicators {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.project-gallery-dot {
+  background: rgba(255, 255, 255, 0.4);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 0.6rem;
+  padding: 0;
+  transition: background 150ms ease;
+  width: 0.6rem;
+}
+
+.project-gallery-dot:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.project-gallery-dot.active {
+  background: var(--color-accent);
+}
+
+.project-gallery-dot:focus-visible {
+  outline: 2px solid var(--color-accent-pink);
+  outline-offset: 0.2rem;
 }
 
 .skills dl,

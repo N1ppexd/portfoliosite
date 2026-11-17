@@ -25,6 +25,66 @@ function ProjectCover({ project, dialog = false }) {
   )
 }
 
+function ProjectGallery({ project }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  if (!project.gallery || project.gallery.length === 0) {
+    return null
+  }
+
+  const handlePrevious = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? project.gallery.length - 1 : prevIndex - 1))
+  }
+
+  const handleNext = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex === project.gallery.length - 1 ? 0 : prevIndex + 1))
+  }
+
+  return (
+    <div className="project-gallery">
+      <div className="project-gallery-container">
+        <img
+          className="project-gallery-image"
+          src={project.gallery[currentImageIndex]}
+          alt={`${project.title} gallery image ${currentImageIndex + 1}`}
+        />
+        {project.gallery.length > 1 && (
+          <>
+            <button
+              className="project-gallery-nav project-gallery-prev"
+              onClick={handlePrevious}
+              type="button"
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+            <button
+              className="project-gallery-nav project-gallery-next"
+              onClick={handleNext}
+              type="button"
+              aria-label="Next image"
+            >
+              ›
+            </button>
+            <div className="project-gallery-indicators">
+              {project.gallery.map((_, index) => (
+                <button
+                  key={index}
+                  className={`project-gallery-dot ${index === currentImageIndex ? 'active' : ''}`}
+                  onClick={() => setCurrentImageIndex(index)}
+                  type="button"
+                  aria-label={`Go to image ${index + 1}`}
+                  aria-current={index === currentImageIndex ? 'true' : 'false'}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function renderInlineHighlight(text) {
   return text.split(/(\{[^}]+\})/g).map((part, index) => {
     if (part.startsWith('{') && part.endsWith('}')) {
@@ -220,7 +280,11 @@ function Projects({ sections }) {
             >
               Close
             </button>
-            <ProjectCover dialog project={selectedProject} />
+            {selectedProject.gallery && selectedProject.gallery.length > 0 ? (
+              <ProjectGallery project={selectedProject} />
+            ) : (
+              <ProjectCover dialog project={selectedProject} />
+            )}
             <div className="project-dialog-content">
               <p className="project-status">{selectedProject.status}</p>
               <h3 id="project-details-title">{selectedProject.title}</h3>
