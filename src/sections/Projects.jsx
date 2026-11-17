@@ -1,11 +1,132 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
+const ROTATION_DELAY = 10_000
+
+function ProjectCover({ project, dialog = false }) {
+  if (project.image) {
+    return (
+      <img
+        className={dialog ? 'project-dialog-art' : 'project-art'}
+        src={project.image}
+        alt=""
+      />
+    )
+  }
+
+  const variant = (project.title.length % 4) + 1
+  return (
+    <div
+      aria-label={`${project.title} cover`}
+      className={`${dialog ? 'project-dialog-art' : 'project-art'} project-art--fallback project-art--fallback-${variant}`}
+      role="img"
+    >
+      <span>{project.title}</span>
+    </div>
+  )
+}
+
+function renderInlineHighlight(text) {
+  return text.split(/(\{[^}]+\})/g).map((part, index) => {
+    if (part.startsWith('{') && part.endsWith('}')) {
+      return <mark className="project-emphasis" key={`${part}-${index}`}>{part.slice(1, -1)}</mark>
+    }
+
+    return part
+  })
+}
 
 function Projects({ sections }) {
   const [activeSectionId, setActiveSectionId] = useState(sections[0].id)
+  const [selectedProject, setSelectedProject] = useState(null)
+  const [rotationPaused, setRotationPaused] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )
+  const [isHovered, setIsHovered] = useState(false)
+  const [hasKeyboardFocus, setHasKeyboardFocus] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [isPageVisible, setIsPageVisible] = useState(!document.hidden)
+  const [interactionCount, setInteractionCount] = useState(0)
+  const sectionRef = useRef(null)
+  const closeButtonRef = useRef(null)
+  const triggerRef = useRef(null)
   const activeSection = sections.find((section) => section.id === activeSectionId)
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting)
+    }, { threshold: 0.1 })
+    observer.observe(sectionRef.current)
+
+    const handleVisibilityChange = () => setIsPageVisible(!document.hidden)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const handleMotionChange = (event) => {
+      if (event.matches) setRotationPaused(true)
+    }
+    reducedMotion.addEventListener('change', handleMotionChange)
+
+    return () => {
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      reducedMotion.removeEventListener('change', handleMotionChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (sections.length < 2 || rotationPaused || isHovered || hasKeyboardFocus ||
+        !isVisible || !isPageVisible || selectedProject) {
+      return undefined
+    }
+
+    const timer = window.setTimeout(() => {
+      setActiveSectionId((currentId) => {
+        const index = sections.findIndex((section) => section.id === currentId)
+        return sections[(index + 1) % sections.length].id
+      })
+    }, ROTATION_DELAY)
+
+    return () => window.clearTimeout(timer)
+  }, [sections, activeSectionId, rotationPaused, isHovered, hasKeyboardFocus,
+    isVisible, isPageVisible, selectedProject, interactionCount])
+
+  useEffect(() => {
+    if (!selectedProject) {
+      return undefined
+    }
+
+    closeButtonRef.current?.focus()
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setSelectedProject(null)
+        requestAnimationFrame(() => triggerRef.current?.focus())
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [selectedProject])
+
+  const closeProjectDetails = () => {
+    setSelectedProject(null)
+    requestAnimationFrame(() => triggerRef.current?.focus())
+  }
+
   return (
-    <section className="section projects" id="projects" aria-labelledby="projects-title">
+    <section
+      className="section projects"
+      id="projects"
+      aria-labelledby="projects-title"
+      ref={sectionRef}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocusCapture={(event) => setHasKeyboardFocus(event.target.matches(':focus-visible'))}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setHasKeyboardFocus(false)
+      }}
+      onClickCapture={() => setInteractionCount((count) => count + 1)}
+    >
       <div className="section-intro">
         <div>
           <p className="eyebrow">Selected work</p>
@@ -31,6 +152,16 @@ function Projects({ sections }) {
         ))}
       </div>
 
+      {sections.length > 1 && (
+        <button
+          className="project-rotation-toggle"
+          onClick={() => setRotationPaused((paused) => !paused)}
+          type="button"
+        >
+          {rotationPaused ? 'Resume' : 'Pause'} automatic switching
+        </button>
+      )}
+
       <div
         aria-labelledby={`${activeSection.id}-tab`}
         className="project-grid"
@@ -39,30 +170,82 @@ function Projects({ sections }) {
       >
         {activeSection.projects.map((project) => (
           <article className="project-card" key={project.title}>
-            <a
-              className="project-link"
-              href={project.url}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`View ${project.title}`}
+            <button
+              className="project-card-button"
+              onClick={(event) => {
+                triggerRef.current = event.currentTarget
+                setSelectedProject(project)
+              }}
+              type="button"
             >
-              <img className="project-art" src={project.image} alt="" />
+              <ProjectCover project={project} />
               <div className="project-content">
                 <p className="project-status">{project.status}</p>
                 <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                {project.stack.length > 0 && (
-                  <ul aria-label={`${project.title} technologies`}>
-                    {project.stack.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                )}
+                <p>{project.smallDescription ?? "View project details"}</p>
+                {
+                  project.stack.length > 0 && (
+                    <ul aria-label={`${project.title} technologies`}>
+                      {project.stack.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  )
+                }
               </div>
-            </a>
+            </button>
           </article>
         ))}
       </div>
+
+      {selectedProject && (
+        <div
+          aria-labelledby="project-details-title"
+          aria-modal="true"
+          className="project-dialog-backdrop"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              closeProjectDetails()
+            }
+          }}
+          role="dialog"
+        >
+          <div className="project-dialog">
+            <button
+              aria-label="Close project details"
+              className="project-dialog-close"
+              onClick={closeProjectDetails}
+              ref={closeButtonRef}
+              type="button"
+            >
+              Close
+            </button>
+            <ProjectCover dialog project={selectedProject} />
+            <div className="project-dialog-content">
+              <p className="project-status">{selectedProject.status}</p>
+              <h3 id="project-details-title">{selectedProject.title}</h3>
+              <p>{renderInlineHighlight(selectedProject.description)}</p>
+              {selectedProject.stack.length > 0 && (
+                <ul aria-label={`${selectedProject.title} technologies`}>
+                  {selectedProject.stack.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              )}
+              {selectedProject.url && (
+                <a
+                  className="button"
+                  href={selectedProject.url}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  Visit project <span aria-hidden="true">↗</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

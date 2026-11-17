@@ -2,18 +2,32 @@ function About() {
   return (
     <section className="section about" id="about" aria-labelledby="about-title">
       <p className="eyebrow">About</p>
-      <div className="split-heading">
-        <h2 id="about-title">Making games since I was 13.</h2>
-        <div>
+      <h2 id="about-title">I love technology and games.</h2>
+      <div className="about-content">
+        <div className="about-card">
           <p>
-            I’m Niilo Hanni, a game developer with expertise in Unity, C#,
+            I'm Niilo Hanni, a game developer with expertise in Unity, C#,
             Blender, game design, and game UI design. I enjoy solving difficult
             problems and working alongside talented indie game teams.
           </p>
           <p>
+            I started programming at 13 years old, because I wanted to learn to make games. 
+            Then I started tinkering with Arduino and 3D-printing, but stuck primarily to game development.
+          </p>
+          <p>
+            During my free time, I enjoy hobbies such as skydiving, rock climbing and snowboarding.
+          </p>
+        </div>
+        <div className="about-card">
+          <p>
             In 2026, I worked as an intern at Seppo Gamesmiths Oy, updating and
             refactoring the Nakama backend for Fusion Guards, a live service
             game.
+          </p>
+          <p>
+            I stay active in the games industry through events and networking,
+            including Umeå Game Conference in 2026. I am also keen to apply my
+            practical engineering skills in new industries.
           </p>
         </div>
       </div>
