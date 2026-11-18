@@ -1,101 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { ProjectCard } from '../components/ProjectCard.jsx'
+import { ProjectCover } from '../components/ProjectCover.jsx'
+import { ProjectGallery } from '../components/ProjectGallery.jsx'
+import { ChevronIcon } from '../components/ChevronIcon.jsx'
+import { renderInlineHighlight } from '../components/renderInlineHighlight.jsx'
 
 const ROTATION_DELAY = 10_000
-
-function ProjectCover({ project, dialog = false }) {
-  if (project.image) {
-    return (
-      <img
-        className={dialog ? 'project-dialog-art' : 'project-art'}
-        src={project.image}
-        alt=""
-      />
-    )
-  }
-
-  const variant = (project.title.length % 4) + 1
-  return (
-    <div
-      aria-label={`${project.title} cover`}
-      className={`${dialog ? 'project-dialog-art' : 'project-art'} project-art--fallback project-art--fallback-${variant}`}
-      role="img"
-    >
-      <span>{project.title}</span>
-    </div>
-  )
-}
-
-function ProjectGallery({ project }) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-
-  if (!project.gallery || project.gallery.length === 0) {
-    return null
-  }
-
-  const handlePrevious = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? project.gallery.length - 1 : prevIndex - 1))
-  }
-
-  const handleNext = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === project.gallery.length - 1 ? 0 : prevIndex + 1))
-  }
-
-  return (
-    <div className="project-gallery">
-      <div className="project-gallery-container">
-        <img
-          className="project-gallery-image"
-          src={project.gallery[currentImageIndex]}
-          alt={`${project.title} gallery image ${currentImageIndex + 1}`}
-        />
-        {project.gallery.length > 1 && (
-          <>
-            <button
-              className="project-gallery-nav project-gallery-prev"
-              onClick={handlePrevious}
-              type="button"
-              aria-label="Previous image"
-            >
-              ‹
-            </button>
-            <button
-              className="project-gallery-nav project-gallery-next"
-              onClick={handleNext}
-              type="button"
-              aria-label="Next image"
-            >
-              ›
-            </button>
-            <div className="project-gallery-indicators">
-              {project.gallery.map((_, index) => (
-                <button
-                  key={index}
-                  className={`project-gallery-dot ${index === currentImageIndex ? 'active' : ''}`}
-                  onClick={() => setCurrentImageIndex(index)}
-                  type="button"
-                  aria-label={`Go to image ${index + 1}`}
-                  aria-current={index === currentImageIndex ? 'true' : 'false'}
-                />
-              ))}
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  )
-}
-
-function renderInlineHighlight(text) {
-  return text.split(/(\{[^}]+\})/g).map((part, index) => {
-    if (part.startsWith('{') && part.endsWith('}')) {
-      return <mark className="project-emphasis" key={`${part}-${index}`}>{part.slice(1, -1)}</mark>
-    }
-
-    return part
-  })
-}
+const SWIPE_THRESHOLD = 50
 
 function Projects({ sections }) {
+
+  
   const [activeSectionId, setActiveSectionId] = useState(sections[0].id)
   const [selectedProject, setSelectedProject] = useState(null)
   const [rotationPaused, setRotationPaused] = useState(
@@ -106,10 +21,37 @@ function Projects({ sections }) {
   const [isVisible, setIsVisible] = useState(false)
   const [isPageVisible, setIsPageVisible] = useState(!document.hidden)
   const [interactionCount, setInteractionCount] = useState(0)
+  const [sectionDirection, setSectionDirection] = useState('next')
   const sectionRef = useRef(null)
   const closeButtonRef = useRef(null)
   const triggerRef = useRef(null)
+  const sectionTouchStartRef = useRef(null)
   const activeSection = sections.find((section) => section.id === activeSectionId)
+
+  const moveToSection = useCallback((direction) => {
+    // Keep button, swipe, and automatic navigation moving in the same direction.
+    setSectionDirection(direction > 0 ? 'next' : 'previous')
+    setActiveSectionId((currentId) => {
+      const currentIndex = sections.findIndex((section) => section.id === currentId)
+      const nextIndex = (currentIndex + direction + sections.length) % sections.length
+      return sections[nextIndex].id
+    })
+  }, [sections])
+
+  const navigateToSection = (direction) => {
+    moveToSection(direction)
+    setRotationPaused(true)
+  }
+
+  const selectSection = (sectionId) => {
+    const currentIndex = sections.findIndex((section) => section.id === activeSectionId)
+    const nextIndex = sections.findIndex((section) => section.id === sectionId)
+
+    if (currentIndex === nextIndex) return
+
+    setSectionDirection(nextIndex > currentIndex ? 'next' : 'previous')
+    setActiveSectionId(sectionId)
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -134,27 +76,26 @@ function Projects({ sections }) {
   }, [])
 
   useEffect(() => {
+    // Automatic rotation stops while the user is interacting with the section or a dialog.
     if (sections.length < 2 || rotationPaused || isHovered || hasKeyboardFocus ||
         !isVisible || !isPageVisible || selectedProject) {
       return undefined
     }
 
     const timer = window.setTimeout(() => {
-      setActiveSectionId((currentId) => {
-        const index = sections.findIndex((section) => section.id === currentId)
-        return sections[(index + 1) % sections.length].id
-      })
+      moveToSection(1)
     }, ROTATION_DELAY)
 
     return () => window.clearTimeout(timer)
   }, [sections, activeSectionId, rotationPaused, isHovered, hasKeyboardFocus,
-    isVisible, isPageVisible, selectedProject, interactionCount])
+    isVisible, isPageVisible, selectedProject, interactionCount, moveToSection])
 
   useEffect(() => {
     if (!selectedProject) {
       return undefined
     }
 
+    // Preserve any existing inline style when the project dialog closes.
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     closeButtonRef.current?.focus()
@@ -178,6 +119,37 @@ function Projects({ sections }) {
     requestAnimationFrame(() => triggerRef.current?.focus())
   }
 
+  const selectProject = (project, trigger) => {
+    triggerRef.current = trigger
+    setSelectedProject(project)
+  }
+
+  const handleSectionTouchStart = (event) => {
+    const touch = event.touches[0]
+    sectionTouchStartRef.current = { x: touch.clientX, y: touch.clientY }
+  }
+
+  const handleSectionTouchEnd = (event) => {
+    if (!sectionTouchStartRef.current) return
+
+    const touch = event.changedTouches[0]
+    const deltaX = touch.clientX - sectionTouchStartRef.current.x
+    const deltaY = touch.clientY - sectionTouchStartRef.current.y
+    sectionTouchStartRef.current = null
+
+    // Only horizontal swipes change collections; vertical gestures remain page scrolling.
+    if (
+      sections.length < 2 ||
+      Math.abs(deltaX) < SWIPE_THRESHOLD ||
+      Math.abs(deltaX) <= Math.abs(deltaY)
+    ) {
+      return
+    }
+
+    navigateToSection(deltaX < 0 ? 1 : -1)
+    event.preventDefault()
+  }
+
   return (
     <section
       className="section projects"
@@ -192,73 +164,83 @@ function Projects({ sections }) {
       }}
       onClickCapture={() => setInteractionCount((count) => count + 1)}
     >
-      <div className="section-intro">
-        <div>
-          <h2 id="projects-title">{activeSection.title}</h2>
+      <div
+        className="projects-panel"
+      >
+        <div className="section-intro">
+          <div>
+            <h2 id="projects-title">{activeSection.title}</h2>
+          </div>
         </div>
-      </div>
 
-      <div className="project-tabs" role="tablist" aria-label="Project collections">
-        {sections.map((section) => (
+        <div className="project-navigation">
+          <div
+            className="project-tabs"
+            onTouchEnd={handleSectionTouchEnd}
+            onTouchStart={handleSectionTouchStart}
+            role="tablist"
+            aria-label="Project collections"
+          >
+            {sections.map((section) => (
+              <button
+                aria-controls={`${section.id}-projects`}
+                aria-selected={section.id === activeSectionId}
+                className="project-tab"
+                id={`${section.id}-tab`}
+                key={section.id}
+                onClick={() => selectSection(section.id)}
+                role="tab"
+                type="button"
+              >
+                {section.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {sections.length > 1 && (
           <button
-            aria-controls={`${section.id}-projects`}
-            aria-selected={section.id === activeSectionId}
-            className="project-tab"
-            id={`${section.id}-tab`}
-            key={section.id}
-            onClick={() => setActiveSectionId(section.id)}
-            role="tab"
+            className="project-rotation-toggle"
+            onClick={() => setRotationPaused((paused) => !paused)}
             type="button"
           >
-            {section.label}
+            {rotationPaused ? 'Resume' : 'Pause'} automatic switching
           </button>
-        ))}
-      </div>
+        )}
 
-      {sections.length > 1 && (
-        <button
-          className="project-rotation-toggle"
-          onClick={() => setRotationPaused((paused) => !paused)}
-          type="button"
-        >
-          {rotationPaused ? 'Resume' : 'Pause'} automatic switching
-        </button>
-      )}
-
-      <div
-        aria-labelledby={`${activeSection.id}-tab`}
-        className="project-grid"
-        id={`${activeSection.id}-projects`}
-        role="tabpanel"
-      >
-        {activeSection.projects.map((project) => (
-          <article className="project-card" key={project.title}>
+        <div className="project-grid-navigation">
+          {sections.length > 1 && (
             <button
-              className="project-card-button"
-              onClick={(event) => {
-                triggerRef.current = event.currentTarget
-                setSelectedProject(project)
-              }}
+              aria-label="Previous project section"
+              className="project-section-nav"
+              onClick={() => navigateToSection(-1)}
               type="button"
             >
-              <ProjectCover project={project} />
-              <div className="project-content">
-                <p className="project-status">{project.status}</p>
-                <h3>{project.title}</h3>
-                <p>{project.smallDescription ?? "View project details"}</p>
-                {
-                  project.stack.length > 0 && (
-                    <ul aria-label={`${project.title} technologies`}>
-                      {project.stack.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  )
-                }
-              </div>
+              <ChevronIcon direction="left" />
             </button>
-          </article>
-        ))}
+          )}
+          <div
+            aria-labelledby={`${activeSection.id}-tab`}
+            className={`project-grid project-grid--${sectionDirection}`}
+            id={`${activeSection.id}-projects`}
+            key={activeSection.id}
+            role="tabpanel"
+          >
+            {activeSection.projects.map((project) => (
+              <ProjectCard key={project.title} onSelect={selectProject} project={project} />
+            ))}
+          </div>
+          {sections.length > 1 && (
+            <button
+              aria-label="Next project section"
+              className="project-section-nav"
+              onClick={() => navigateToSection(1)}
+              type="button"
+            >
+              <ChevronIcon direction="right" />
+            </button>
+          )}
+        </div>
       </div>
 
       {selectedProject && (

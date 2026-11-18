@@ -11,6 +11,7 @@ export default function TechnicalExpertise({ expertiseAreas }) {
 	useEffect(() => {
 		if (!selectedArea) return undefined
 
+		// Keep the page behind the expertise dialog from moving.
 		const previousOverflow = document.body.style.overflow
 		document.body.style.overflow = 'hidden'
 		closeButtonRef.current?.focus()

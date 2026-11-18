@@ -8,7 +8,7 @@ import Contact from './sections/Contact.jsx'
 import Experience from './sections/Experience.jsx'
 import Hero from './sections/Hero.jsx'
 import Projects from './sections/Projects.jsx'
-import Skydiving from './sections/Skydiving.jsx'
+import Skydiving from './components/Skydiving.jsx'
 import TechnicalExpertise from './sections/Expertise.jsx'
 import Skills from './sections/Skills.jsx'
 

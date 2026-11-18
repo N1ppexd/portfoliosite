@@ -104,6 +104,14 @@ nav a,
   text-transform: none;
 }
 
+.email-link {
+  color: var(--color-accent-light);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: none;
+}
+
 nav a[aria-current="page"] {
   color: var(--color-accent);
 }
@@ -499,6 +507,79 @@ h2 {
   display: flex;
   gap: 1.5rem;
   margin-bottom: 3rem;
+  touch-action: pan-y;
+}
+
+.project-navigation {
+  display: block;
+}
+
+.project-grid-navigation {
+  align-items: start;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.project-section-nav,
+.project-gallery-nav {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--color-text-dim);
+  cursor: pointer;
+  display: flex;
+  height: 2.75rem;
+  justify-content: center;
+  padding: 0;
+  width: 1.75rem;
+}
+
+.project-section-nav {
+  margin-top: clamp(2.5rem, 7vw, 6rem);
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.project-section-nav:hover,
+.project-gallery-nav:hover {
+  color: var(--color-accent-light);
+}
+
+.project-section-nav:focus-visible {
+  outline: 2px solid var(--color-accent-pink);
+  outline-offset: 0.15rem;
+}
+
+.project-grid--next {
+  animation: project-panel-from-right 350ms ease-out both;
+}
+
+.project-grid--previous {
+  animation: project-panel-from-left 350ms ease-out both;
+}
+
+@keyframes project-panel-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(2rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes project-panel-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-2rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .project-tab {
@@ -679,16 +760,40 @@ h3 {
   padding: 1.5rem;
   position: fixed;
   z-index: 10;
+  animation: dialog-backdrop-in 180ms ease-out both;
 }
 
 .project-dialog {
+  animation: dialog-pop-in 220ms ease-out both;
   background: var(--color-surface);
   border: 1px solid var(--color-border-warm-strong);
-  max-height: min(700px, calc(100vh - 3rem));
+  height: min(680px, calc(100vh - 3rem));
   max-width: 760px;
-  overflow: auto;
+  overflow-y: auto;
   position: relative;
   width: 100%;
+}
+
+@keyframes dialog-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .project-dialog-close {
@@ -738,6 +843,7 @@ h3 {
 }
 
 .project-gallery-container {
+  touch-action: pan-y;
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -748,21 +854,10 @@ h3 {
 }
 
 .project-gallery-nav {
-  background: rgba(0, 0, 0, 0.5);
-  border: 0;
-  color: var(--color-text);
-  cursor: pointer;
-  font-size: 2rem;
-  padding: 0.5rem 1rem;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  transition: background 150ms ease;
-}
-
-.project-gallery-nav:hover {
-  background: rgba(0, 0, 0, 0.7);
 }
 
 .project-gallery-nav:focus-visible {
@@ -1106,7 +1201,7 @@ footer a {
   }
 
   .project-dialog {
-    max-height: calc(100vh - 1.5rem);
+    height: calc(100vh - 1.5rem);
   }
 
   .project-dialog-art,
@@ -1134,6 +1229,15 @@ footer a {
   .contact {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-dialog-backdrop,
+  .project-dialog,
+  .project-grid--next,
+  .project-grid--previous {
+    animation: none;
   }
 }
 
