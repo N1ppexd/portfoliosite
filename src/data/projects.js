@@ -61,8 +61,8 @@ export const projectSections = [
   },
   {
     id: 'itch-io',
-    label: 'itch.io games',
-    title: 'itch.io games.',
+    label: 'Itch.io games',
+    title: 'Itch.io games.',
     description: 'Small games and game jam projects available to play online.',
     projects: [
       {
@@ -141,7 +141,7 @@ export const projectSections = [
       },
 
     ]
-  },
+  },/*
   {
     id: 'personal tinkering',
     label: 'Personal tinkering',
@@ -157,5 +157,5 @@ export const projectSections = [
         image: '', // Add the image import and path here
       }
     ]
-  }
+  }*/
 ]

@@ -101,7 +101,7 @@ nav a,
   font-size: 0.67rem;
   letter-spacing: 0.08em;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 nav a[aria-current="page"] {
@@ -163,14 +163,8 @@ footer a:hover {
   font-size: 0.67rem;
   letter-spacing: 0.12em;
   margin: 0 0 1.5rem;
-  text-transform: uppercase;
 }
 
-.eyebrow::before,
-.technical-expertise__eyebrow::before {
-  color: var(--color-eyebrow-prefix);
-  content: "// ";
-}
 
 h1,
 h2,
@@ -182,12 +176,13 @@ p {
 h1,
 h2,
 h3 {
-  text-transform: uppercase;
+  text-transform: none;
+  font-weight: 450;
 }
 
 h1 {
   font-size: clamp(2rem, 12.5vw, 8.5rem);
-  font-weight: 700;
+  font-weight: 550;
   letter-spacing: -0.07em;
   line-height: 0.74;
   margin-bottom: 2.25rem;
@@ -203,6 +198,7 @@ h1 span {
 
 .hero-copy {
   color: var(--color-hero-copy);
+  padding-top: 1rem;
   font-size: 1.2rem;
   line-height: 1.45;
   max-width: 460px;
@@ -229,7 +225,7 @@ h1 span {
   letter-spacing: 0.07em;
   padding: 1rem 1.3rem;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
   transition: background 150ms ease, color 150ms ease;
 }
 
@@ -240,7 +236,6 @@ h1 span {
 
 .section,
 .technical-expertise {
-  border-top: 1px solid var(--color-border);
   padding: clamp(5rem, 9vw, 8rem) 0;
 }
 
@@ -350,7 +345,7 @@ h1 span {
   line-height: 1;
   padding: 0.25rem;
   text-align: center;
-  text-transform: uppercase;
+  text-transform: none;
   width: 2.4rem;
 }
 
@@ -456,7 +451,7 @@ h1 span {
   font-size: 0.7rem;
   letter-spacing: 0.08em;
   margin-top: 1.5rem;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .expertise-card__topics li,
@@ -466,7 +461,7 @@ h1 span {
   color: var(--color-tag-text);
   font-size: 0.62rem;
   padding: 0.35rem 0.55rem;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .section-intro {
@@ -516,7 +511,7 @@ h2 {
   letter-spacing: 0.08em;
   margin-bottom: -1px;
   padding: 0 0 0.85rem;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .project-tab:hover,
@@ -553,8 +548,8 @@ h2 {
 
 .project-grid {
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .project-card {
@@ -606,7 +601,7 @@ h2 {
   font-weight: 700;
   letter-spacing: -0.06em;
   padding: 1.5rem;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .project-art--fallback-2 {
@@ -626,18 +621,18 @@ h2 {
 
 .project-dialog-art.project-art--fallback {
   align-items: center;
-  height: 340px;
+  height: 280px;
   justify-content: center;
   padding: 2rem;
   text-align: center;
 }
 
 .project-content {
-  padding: 1.5rem;
+  padding: 1.15rem;
 }
 
 .project-status {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.55rem;
 }
 
 h3 {
@@ -647,10 +642,19 @@ h3 {
   margin-bottom: 0.75rem;
 }
 
+.project-content h3 {
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+}
+
 .project-content > p:not(.project-status) {
   color: var(--color-text-subtle);
+  display: -webkit-box;
   line-height: 1.45;
-  min-height: 3.2em;
+  min-height: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
 }
 
 .project-emphasis {
@@ -697,7 +701,7 @@ h3 {
   padding: 0.75rem 1rem;
   position: absolute;
   right: 0;
-  text-transform: uppercase;
+  text-transform: none;
   top: 0;
   z-index: 11;
 }
@@ -707,9 +711,10 @@ h3 {
   outline-offset: -0.25rem;
 }
 
-.project-dialog-art {
+.project-dialog-art,
+.project-gallery-image {
   display: block;
-  max-height: 340px;
+  height: 280px;
   object-fit: cover;
   width: 100%;
 }
@@ -739,10 +744,6 @@ h3 {
 }
 
 .project-gallery-image {
-  display: block;
-  width: 100%;
-  max-height: 340px;
-  object-fit: cover;
   object-position: center;
 }
 
@@ -809,13 +810,11 @@ h3 {
   outline-offset: 0.2rem;
 }
 
-.skills dl,
 .experience dl {
   border-top: 1px solid var(--color-border-warm);
   margin: 3rem 0 0;
 }
 
-.skills dl > div,
 .experience dl > div {
   border-bottom: 1px solid var(--color-border-warm);
   display: grid;
@@ -824,10 +823,53 @@ h3 {
   padding: 1.25rem 0;
 }
 
+.skills-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin-top: 3rem;
+}
+
+.skill-card {
+  align-items: center;
+  background:
+    linear-gradient(135deg, var(--color-accent-overlay), transparent 10%),
+    var(--color-surface);
+  border: 1px solid var(--color-border-warm);
+  display: flex;
+  min-height: 7rem;
+  padding: 1.25rem;
+  position: relative;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.skill-card::before {
+  background: var(--color-accent);
+  content: '';
+  height: 0.3rem;
+  left: -1px;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+}
+
+.skill-card span {
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: none;
+}
+
+.skill-card:hover {
+  border-color: var(--color-accent-light);
+  transform: translateY(-0.2rem);
+}
+
 dt {
   color: var(--color-accent-dim);
   font-size: 0.7rem;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 dd {
@@ -896,6 +938,10 @@ footer a {
 
 @media (max-width: 900px) {
   .technical-expertise__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -991,11 +1037,14 @@ footer a {
 
   .about-content,
   .section-intro,
-  .project-grid,
   .technical-expertise__grid,
-  .skills dl > div,
   .experience dl > div {
     grid-template-columns: 1fr;
+  }
+
+  .project-grid {
+    gap: 0.6rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .section-intro {
@@ -1004,7 +1053,7 @@ footer a {
   }
 
   .project-art {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 1;
   }
 
   .project-tabs {
@@ -1024,9 +1073,32 @@ footer a {
     min-height: 2.75rem;
   }
 
-  .project-content,
   .project-dialog-content {
     padding: 1.25rem;
+  }
+
+  .project-content {
+    padding: 0.75rem;
+  }
+
+  .project-content h3 {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .project-content > p:not(.project-status) {
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .project-content ul {
+    gap: 0.25rem;
+    margin-top: 0.75rem;
+  }
+
+  .project-content li {
+    font-size: 0.5rem;
+    padding: 0.25rem 0.35rem;
   }
 
   .project-dialog-backdrop {
@@ -1037,12 +1109,13 @@ footer a {
     max-height: calc(100vh - 1.5rem);
   }
 
-  .project-dialog-art {
-    max-height: 220px;
+  .project-dialog-art,
+  .project-gallery-image {
+    height: 180px;
   }
 
   .project-dialog-art.project-art--fallback {
-    height: 220px;
+    height: 180px;
   }
 
   .procedural-graph-demo {

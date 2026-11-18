@@ -155,6 +155,8 @@ function Projects({ sections }) {
       return undefined
     }
 
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     closeButtonRef.current?.focus()
 
     const handleKeyDown = (event) => {
@@ -165,7 +167,10 @@ function Projects({ sections }) {
     }
 
     document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', handleKeyDown)
+    }
   }, [selectedProject])
 
   const closeProjectDetails = () => {
@@ -189,10 +194,8 @@ function Projects({ sections }) {
     >
       <div className="section-intro">
         <div>
-          <p className="eyebrow">Selected work</p>
           <h2 id="projects-title">{activeSection.title}</h2>
         </div>
-        <p>{activeSection.description}</p>
       </div>
 
       <div className="project-tabs" role="tablist" aria-label="Project collections">

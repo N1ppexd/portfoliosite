@@ -4,7 +4,6 @@ function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-content">
-        <p className="eyebrow">Portfolio</p>
         <h1 id="hero-title">
           Niilo Hanni
         </h1>
@@ -12,13 +11,11 @@ function Hero() {
           <span>Developer & student</span>
         </h2>
         <p className="hero-copy">
-          Game developer with more than a decade of experience building in Unity.
+          10 years of experience building in Unity. 
+          Highly interested in other areas of technology and software development.
         </p>
         <p className="hero-copy">
-          Also highly interested in other areas of technology and software development.
-        </p>
-        <p className="hero-copy">
-          Information technology student at Oulu University of Applied Sciences since 2024.
+          Bachelors degree studies in Information Technology since 2024.
         </p>
         <div className="hero-actions">
           <a className="button" href="#projects">
