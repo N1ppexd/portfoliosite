@@ -12,6 +12,7 @@ function Skydiving() {
   const [hasOpenedParachute, setHasOpenedParachute] = useState(false)
 
   useGSAP(() => {
+    // Swap sprites after the scroll progress passes the parachute-opening point.
     const updateSprite = () => {
       setHasOpenedParachute((window.scrollY / (document.body.scrollHeight - window.innerHeight)) > 0.5)
     }
