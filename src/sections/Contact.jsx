@@ -1,7 +1,6 @@
 function Contact() {
   return (
     <section className="contact" id="contact" aria-labelledby="contact-title">
-      <p className="eyebrow">Contact</p>
       <h2 id="contact-title">Contact me</h2>
       <p>
         Find me on GitHub to see what I'm working on and get in touch, or connect with me on LinkedIn.

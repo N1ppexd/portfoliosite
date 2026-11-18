@@ -11,6 +11,8 @@ export default function TechnicalExpertise({ expertiseAreas }) {
 	useEffect(() => {
 		if (!selectedArea) return undefined
 
+		const previousOverflow = document.body.style.overflow
+		document.body.style.overflow = 'hidden'
 		closeButtonRef.current?.focus()
 
 		const handleKeyDown = (event) => {
@@ -21,7 +23,10 @@ export default function TechnicalExpertise({ expertiseAreas }) {
 		}
 
 		document.addEventListener('keydown', handleKeyDown)
-		return () => document.removeEventListener('keydown', handleKeyDown)
+		return () => {
+			document.body.style.overflow = previousOverflow
+			document.removeEventListener('keydown', handleKeyDown)
+		}
 	}, [selectedArea])
 
 	const closeDetails = () => {
@@ -33,7 +38,6 @@ export default function TechnicalExpertise({ expertiseAreas }) {
 		<section className="technical-expertise" id="expertise" aria-labelledby="expertise-title" href="#expertise">
 			<div className="technical-expertise__inner">
 				<header className="technical-expertise__header">
-					<p className="technical-expertise__eyebrow">How I work</p>
 					<h2 id="expertise-title">Technical expertise</h2>
 					<p className="technical-expertise__intro">
 						A closer look at the ideas, tools, and problem-solving approaches I
@@ -97,11 +101,14 @@ export default function TechnicalExpertise({ expertiseAreas }) {
 								<p key={detail}>{detail}</p>
 							))}
 							{selectedArea.title === 'Procedural generation' && (
-								<div className="procedural-graph-demo">
+								<div className="project-dialog-content">
 									<p className="technical-expertise__eyebrow">System example</p>
-									<h3>Full generated level graph for Shifter</h3>
+									<h3 id="expertise-details-title">Full generated level graph for Shifter</h3>
 									<p>
 										This is how the world levels were structured in Shifter. This graph was generated at the start, and each node represents a level in the game world.
+										
+									</p>
+									<p>
 										Some levels were procedurally generated, while others were designed manually to fit the game's narrative and gameplay requirements.
 										Each area in the graph corresponds to a different section of the game world, and the connections between nodes represent the progression from one level to the next.
 									</p>
