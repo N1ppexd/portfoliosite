@@ -8,15 +8,15 @@ function Hero() {
           Niilo Hanni
         </h1>
         <p className="hero-copy">
-          10 years of experience building in Unity. 
+          Many years of experience building in Unity, C#.
           Highly interested in other areas of technology and software development.
         </p>
         <p className="hero-copy">
           Bachelors degree studies in Information Technology since 2024.
         </p>
         <p className="email-link">
-          <a href="mailto:niilo.hanni@gmail.com">
-            niilo.hanni@gmail.com
+          <a href="mailto:niilohanni@gmail.com">
+            niilohanni@gmail.com
           </a>
         </p>
         <div className="hero-actions">

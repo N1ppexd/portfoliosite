@@ -74,6 +74,7 @@ export const projectSections = [
         status: 'Play in browser',
         image: gettingRidOfItCapsule,
         url: 'https://n1ppe.itch.io/getting-rid-of-it',
+        repoLink: 'https://github.com/N1ppexd/GettingRidOfItCode',
       },
       {
         title: 'Nuclear Fall',
@@ -85,6 +86,7 @@ export const projectSections = [
         image: nuclearFallCapsule,
         gallery: [nuclearFallGallery1, nuclearFallGallery2, nuclearFallGallery3, nuclearFallGallery4, nuclearFallGallery5, nuclearFallGallery6],
         url: 'https://n1ppe.itch.io/nuclear-fall',
+        repoLink: 'https://github.com/N1ppexd/NuclearWinterCode',
       },
       {
         title: 'Alien Rescue',
@@ -138,6 +140,7 @@ export const projectSections = [
         status: 'GitHub Repository / School project',
         image: '', // Add the image import and path here
         url: 'https://github.com/Mobiilikehitysprojekti-R15/Mobiilikehitysprojekti', // Add the URL if available
+        repoLink: 'https://github.com/Mobiilikehitysprojekti-R15/Mobiilikehitysprojekti',
       },
 
     ]
