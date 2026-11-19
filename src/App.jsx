@@ -5,6 +5,7 @@ import { expertiseAreas } from './data/techexpertise.js'
 import { useEffect, useState } from 'react'
 import About from './sections/About.jsx'
 import Contact from './sections/Contact.jsx'
+import Clouds from './components/Clouds.jsx'
 import Experience from './sections/Experience.jsx'
 import Hero from './sections/Hero.jsx'
 import Projects from './sections/Projects.jsx'
@@ -18,6 +19,11 @@ function App() {
 
 
   const [activeSection, setActiveSection] = useState(null)
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = isDarkMode ? 'dark' : 'light'
+  }, [isDarkMode])
 
   useEffect(() => {
     const ids = ['about', 'projects', 'expertise', 'skills', 'experience', 'contact']
@@ -58,9 +64,23 @@ function App() {
           <a href="#experience" aria-current={activeSection === 'experience' ? 'page' : undefined}>Experience</a>
           <a href="#contact" aria-current={activeSection === 'contact' ? 'page' : undefined}>Contact</a>
         </nav>
+        <button
+          className="theme-switch"
+          type="button"
+          role="switch"
+          aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+          aria-checked={isDarkMode}
+          onClick={() => setIsDarkMode(current => !current)}
+        >
+          <span className="theme-switch__track" aria-hidden="true">
+            <span className="theme-switch__knob" />
+          </span>
+          <span className="theme-switch__label">{isDarkMode ? 'Dark' : 'Light'}</span>
+        </button>
       </header>
 
       <Skydiving />
+      <Clouds />
       <main id="top">
         <Hero />
         <About />

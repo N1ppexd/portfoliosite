@@ -1,7 +1,7 @@
 export const experience = [
   [
     'Ilta Games Oy',
-    'Founded for my solo project, Shifter. The company is currently inactive while I focus on funding and other opportunities.',
+    'Founded for my solo project, Shifter and other side projects. Currently inactive.',
   ],
   [
     'Seppo Gamesmiths Oy',

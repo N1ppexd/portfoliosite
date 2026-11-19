@@ -281,15 +281,29 @@ function Projects({ sections }) {
                   ))}
                 </ul>
               )}
-              {selectedProject.url && (
-                <a
-                  className="button"
-                  href={selectedProject.url}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  Visit project <span aria-hidden="true">↗</span>
-                </a>
+              {(selectedProject.url || selectedProject.repoLink) && (
+                <div className="project-dialog-links">
+                  {selectedProject.url && (
+                    <a
+                      className="button"
+                      href={selectedProject.url}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Visit project <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
+                  {selectedProject.repoLink && (
+                    <a
+                      className="button button-secondary"
+                      href={selectedProject.repoLink}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Public repo <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
+                </div>
               )}
             </div>
           </div>
