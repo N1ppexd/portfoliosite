@@ -30,7 +30,12 @@ export const expertiseAreas = [
 			"Great understanding of code patterns, architecture, and maintainable structure. Especially when it comes to game development, but also in other areas.",
 		details: [
 			"I have lots of experience in designing and creating maintainable code. For example in Shifter. I had to implement things in such a way that the code is clean and easy to understand," +
-			"Making sure that adding new functionality is easy and does not introduce unnecessary complexity.",
+			" Making sure that adding new functionality is easy and does not introduce unnecessary complexity.",
+			" I also pay attention to code readability and consistency, ensuring that the codebase remains approachable for both current and future team members.",
+			" I try to apply the principles of \"Programming Patterns\" and software design best practices to ensure that the code remains maintainable, scalable, and easy to understand.",
+			" This has been especially important in game development, where complex systems and interactions require a well-structured and maintainable codebase." +
+			" And with game designers, it is crucial to design the code in a way that supports easy adjustments and modifications to gameplay mechanics quickly. ",
+			" If this is not done correctly, it can lead to the game being nearly impossible to complete."
 		],
 		topics: ["Code patterns", "Architecture", "Maintainability"],
 	},
