@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import gsap from 'gsap'
+
+const cloudModelUrl = new URL('../models/cloud_1.glb', import.meta.url).href
 
 const cloudAnchors = [
   { x: 0.1, y: 0.03, scale: 1.4 },
@@ -12,24 +15,21 @@ const cloudAnchors = [
   { x: 0.7, y: 0.9, scale: 2 },
 ]
 
-function createCloud(material, scale) {
-  const drift = new THREE.Group()
-  const boxGeometry = new THREE.BoxGeometry(78 * scale, 30 * scale, 30 * scale)
-  const boxes = [
-    { x: -34 * scale, y: -8 * scale, z: 0 },
-    { x: 0, y: 8 * scale, z: 4 * scale },
-    { x: 36 * scale, y: -6 * scale, z: -2 * scale },
-  ]
+function disposeModel(model) {
+  const geometries = new Set()
+  const materials = new Set()
 
-  boxes.forEach(({ x, y, z }) => {
-    const box = new THREE.Mesh(boxGeometry, material)
-    box.position.set(x, y, z)
-    box.rotation.set(0.08, 0.16, 0.04)
-    drift.add(box)
+  // Cloned cloud instances share these resources, so dispose each one only once.
+  model.traverse(object => {
+    if (!object.isMesh) return
+    geometries.add(object.geometry)
+    for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+      materials.add(material)
+    }
   })
 
-  drift.rotation.set(-0.08, 0.12, 0)
-  return { drift, boxGeometry }
+  geometries.forEach(geometry => geometry.dispose())
+  materials.forEach(material => material.dispose())
 }
 
 function Clouds() {
@@ -42,34 +42,28 @@ function Clouds() {
     camera.position.set(0, 0, 1000)
     camera.lookAt(0, 0, 0)
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas })
-    const material = new THREE.MeshStandardMaterial({
+    const cloudMaterial = new THREE.MeshStandardMaterial({
       color: 0xeefbff,
-      roughness: 0.9,
+      roughness: 0.1,
       transparent: false,
       opacity: 0.8,
     })
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.8)
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.2)
-    directionalLight.position.set(-100, 160, 240)
+
+    const ambientColor = 0xbbbbff
+    const lightColor = 0xffffff
+    const ambientLightIntensity = 1.8
+    const directionalLightIntensity = 2.5
+
+    const dirLightPosition = new THREE.Vector3(0, 200, 240)
+
+    const ambientLight = new THREE.AmbientLight(ambientColor, ambientLightIntensity)
+    const directionalLight = new THREE.DirectionalLight(lightColor, directionalLightIntensity)
+    directionalLight.position.copy(dirLightPosition)
     scene.add(ambientLight, directionalLight)
 
-    const cloudGroups = cloudAnchors.map((anchor, index) => {
-      const root = new THREE.Group()
-      const { drift, boxGeometry } = createCloud(material, anchor.scale)
-      root.add(drift)
-      scene.add(root)
-
-      gsap.to(drift.position, {
-        delay: index * 0.25,
-        duration: 7 + (index % 3) * 2,
-        ease: 'sine.inOut',
-        repeat: -1,
-        x: index % 2 === 0 ? 24 : -24,
-        yoyo: true,
-      })
-
-      return { anchor, boxGeometry, root }
-    })
+    let cloudGroups = []
+    let cloudModel
+    let isDisposed = false
 
     const resize = () => {
       const width = window.innerWidth
@@ -111,16 +105,66 @@ function Clouds() {
     window.addEventListener('resize', resize)
     window.addEventListener('scroll', render)
 
+    new GLTFLoader().load(
+      cloudModelUrl,
+      gltf => {
+        cloudModel = gltf.scene
+        // The model can finish loading after the component has unmounted.
+        if (isDisposed) {
+          disposeModel(cloudModel)
+          return
+        }
+
+        const bounds = new THREE.Box3().setFromObject(cloudModel)
+        const size = bounds.getSize(new THREE.Vector3())
+        const center = bounds.getCenter(new THREE.Vector3())
+
+        cloudGroups = cloudAnchors.map((anchor, index) => {
+          const root = new THREE.Group()
+          const drift = new THREE.Group()
+          const model = cloudModel.clone(true)
+          model.position.sub(center)
+          // The model's longest axis faces away from the camera in its original orientation.
+          model.rotation.y = -(Math.PI / 2)
+          // Fit each instance to its anchor while preserving the model's proportions.
+          model.scale.setScalar((90 * anchor.scale) / size.z)
+          model.traverse(object => {
+            if (object.isMesh) object.material = cloudMaterial
+          })
+          drift.add(model)
+          drift.rotation.set(-0.08, 0.12, 0)
+          root.add(drift)
+          scene.add(root)
+
+          gsap.to(drift.position, {
+            delay: index * 0.25,
+            duration: 7 + (index % 3) * 2,
+            ease: 'sine.inOut',
+            repeat: -1,
+            x: index % 2 === 0 ? 24 : -24,
+            yoyo: true,
+          })
+
+          return { anchor, drift, root }
+        })
+      },
+      undefined,
+      error => {
+        console.error('Failed to load cloud model:', error)
+      },
+    )
+
     return () => {
+      isDisposed = true
       cancelAnimationFrame(frame)
       window.removeEventListener('resize', resize)
       window.removeEventListener('scroll', render)
-      cloudGroups.forEach(({ boxGeometry, root }) => {
-        gsap.killTweensOf(root.children[0].position)
+      cloudGroups.forEach(({ drift, root }) => {
+        gsap.killTweensOf(drift.position)
         root.removeFromParent()
-        boxGeometry.dispose()
       })
-      material.dispose()
+      if (cloudModel) disposeModel(cloudModel)
+      cloudMaterial.dispose()
       renderer.dispose()
     }
   }, [])

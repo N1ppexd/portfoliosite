@@ -1275,7 +1275,7 @@ footer {
   letter-spacing: 0.04em;
   padding-bottom: 1.5rem;
   padding-top: 1.5rem;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 footer p {
