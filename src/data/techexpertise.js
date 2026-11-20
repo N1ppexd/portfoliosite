@@ -17,20 +17,26 @@ export const expertiseAreas = [
 		description:
 			"I use AI tools, such as agents and custom skills, to perform tasks quicker and more efficiently.",
 		details: [
-			"I am interested in practical uses of AI that help people move from an idea to a working result faster. This includes experimenting with AI-assisted note taking for a React Native study helper.",
-			"I use AI as a support tool for research, prototyping, and repetitive development tasks, while keeping the final decisions, quality standards, and creative direction human-led.",
+			"I use AI tools to improve my workflow, automate repetitive tasks, and accelerate the prototyping process while ensuring that the final output remains under human control. ",
+			"For example, I have used AI agents to quickly generate prototypes and test ideas, which allowed me to iterate faster and focus on refining the final product. "+
+			" I have also made custom AI skills to handle specific tasks and to make sure the output from agentic coding is understandable and well structured, to make code review easier.",
 		],
 		topics: ["Creative workflows", "Rapid prototyping", "Human-led results"],
 	},
 	{
 		number: "03",
-		title: "Problem solving",
+		title: "Code Patterns & Structure",
 		description:
-			"When something does not work, I break it down, find the root cause, and test focused solutions. I value fixes that make a project more reliable as well as solutions that work now.",
+			"Great understanding of code patterns, architecture, and maintainable structure. Especially when it comes to game development, but also in other areas.",
 		details: [
-			"My approach combines careful debugging with a willingness to simplify a system when that is the better long-term solution. I break complex problems into smaller parts, identify the root cause, and test focused solutions instead of relying on guesswork.",
-			"Whether I am refactoring a Nakama backend, tracking down gameplay issues, or designing a new system, I try to leave the project easier to understand and maintain.",
+			"I have lots of experience in designing and creating maintainable code. For example in Shifter. I had to implement things in such a way that the code is clean and easy to understand," +
+			" Making sure that adding new functionality is easy and does not introduce unnecessary complexity.",
+			" I also pay attention to code readability and consistency, ensuring that the codebase remains approachable for both current and future team members.",
+			" I try to apply the principles of \"Programming Patterns\" and software design best practices to ensure that the code remains maintainable, scalable, and easy to understand.",
+			" This has been especially important in game development, where complex systems and interactions require a well-structured and maintainable codebase." +
+			" And with game designers, it is crucial to design the code in a way that supports easy adjustments and modifications to gameplay mechanics quickly. ",
+			" If this is not done correctly, it can lead to the game being nearly impossible to complete."
 		],
-		topics: ["Debugging", "Testing ideas", "Refinement"],
+		topics: ["Code patterns", "Architecture", "Maintainability"],
 	},
 ];
