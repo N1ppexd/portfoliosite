@@ -15,27 +15,27 @@ export const expertiseAreas = [
 		number: "02",
 		title: "AI tools",
 		description:
-			"I use AI tools, such as agents and custom skills, to perform tasks quicker and more efficiently.",
+			"I use AI tools, such as agents and custom skills, to perform tasks more quickly and efficiently.",
 		details: [
-			"I use AI tools to improve my workflow, automate repetitive tasks, and accelerate the prototyping process while ensuring that the final output remains under human control. ",
-			"For example, I have used AI agents to quickly generate prototypes and test ideas, which allowed me to iterate faster and focus on refining the final product. "+
-			" I have also made custom AI skills to handle specific tasks and to make sure the output from agentic coding is understandable and well structured, to make code review easier.",
+			"I use AI tools to improve my workflow, automate repetitive tasks, and accelerate the prototyping process while ensuring that the final output remains under human control.",
+			"For example, I have used AI agents to generate prototypes and test ideas quickly, which has allowed me to iterate faster and focus on refining the final product."+
+			" I have also created custom AI skills for specific tasks, making the output from agent-assisted coding easier to understand and review.",
 		],
 		topics: ["Creative workflows", "Rapid prototyping", "Human-led results"],
 	},
 	{
 		number: "03",
-		title: "Code Patterns & Structure",
+		title: "Code Patterns and Structure",
 		description:
-			"Great understanding of code patterns, architecture, and maintainable structure. Especially when it comes to game development, but also in other areas.",
+			"I have a strong understanding of code patterns, architecture, and maintainable structure, especially in game development.",
 		details: [
-			"I have lots of experience in designing and creating maintainable code. For example in Shifter. I had to implement things in such a way that the code is clean and easy to understand," +
-			" Making sure that adding new functionality is easy and does not introduce unnecessary complexity.",
-			" I also pay attention to code readability and consistency, ensuring that the codebase remains approachable for both current and future team members.",
-			" I try to apply the principles of \"Programming Patterns\" and software design best practices to ensure that the code remains maintainable, scalable, and easy to understand.",
-			" This has been especially important in game development, where complex systems and interactions require a well-structured and maintainable codebase." +
-			" And with game designers, it is crucial to design the code in a way that supports easy adjustments and modifications to gameplay mechanics quickly. ",
-			" If this is not done correctly, it can lead to the game being nearly impossible to complete."
+			"I have extensive experience designing and creating maintainable code. For example, while working on Shifter, I implemented systems in a way that kept the code clean and easy to understand," +
+			" making it easier to add new functionality without introducing unnecessary complexity.",
+			"I also pay attention to code readability and consistency, ensuring that the codebase remains approachable for both current and future team members.",
+			"I try to apply programming patterns and software design best practices to keep the code maintainable, scalable, and easy to understand.",
+			"This has been especially important in game development, where complex systems and interactions require a well-structured codebase." +
+			" When working with game designers, it is crucial to design code that supports quick adjustments and modifications to gameplay mechanics.",
+			"If this is not done correctly, the game can become nearly impossible to complete."
 		],
 		topics: ["Code patterns", "Architecture", "Maintainability"],
 	},
