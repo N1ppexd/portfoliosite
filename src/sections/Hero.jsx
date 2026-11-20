@@ -8,11 +8,11 @@ function Hero() {
           Niilo Hanni
         </h1>
         <p className="hero-copy">
-          Many years of experience building in Unity, C#.
-          Highly interested in other areas of technology and software development.
+          I have many years of experience building games with Unity and C#.
+          I am also highly interested in other areas of technology and software development.
         </p>
         <p className="hero-copy">
-          Bachelors degree studies in Information Technology since 2024.
+          I have been studying for a bachelor's degree in Information Technology since 2024.
         </p>
         <p className="email-link">
           <a href="mailto:niilohanni@gmail.com">
