@@ -20,7 +20,7 @@ function Hero() {
           </a>
         </p>
         <div className="hero-actions">
-          <a className="button" href="#projects">
+          <a className="button" href="#involvements">
             View my work <span aria-hidden="true">↓</span>
           </a>
           <a className="text-link" href="#contact">
