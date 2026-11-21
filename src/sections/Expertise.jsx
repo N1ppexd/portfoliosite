@@ -28,6 +28,12 @@ export default function TechnicalExpertise({ expertiseAreas, skills }) {
 		setActiveView(view)
 	}
 
+	const moveView = (direction) => {
+		const currentIndex = views.findIndex((view) => view.id === activeView)
+		const nextIndex = (currentIndex + direction + views.length) % views.length
+		selectView(views[nextIndex].id, direction > 0 ? 'next' : 'previous')
+	}
+
 	const restoreFocus = () => {
 		requestAnimationFrame(() => {
 			const target = triggerRef.current?.isConnected ? triggerRef.current : headingRef.current
@@ -92,8 +98,7 @@ export default function TechnicalExpertise({ expertiseAreas, skills }) {
 						if (view !== activeView) selectView(view, direction)
 					}}
 					onSwipe={(direction) => {
-						if (direction > 0 && activeView === 'expertise') selectView('skills')
-						if (direction < 0 && activeView === 'skills') selectView('expertise')
+						moveView(direction)
 					}}
 					renderContent={(view) => view === 'expertise' ? (
 							<div className="technical-expertise__grid" id="expertise-grid">
@@ -122,37 +127,33 @@ export default function TechnicalExpertise({ expertiseAreas, skills }) {
 					) : <Skills skills={skills} />}
 					renderPanels={(panels) => (
 						<div className="technical-expertise__pagination">
-							{activeView === 'skills' && (
-								<button
-									aria-controls="expertise-panel"
-									aria-label="Show expertise"
-									className="project-section-nav technical-expertise__previous"
-									onClick={() => {
-										selectView('expertise')
-										requestAnimationFrame(() => nextViewRef.current?.focus())
-									}}
-									ref={previousViewRef}
-									type="button"
-								>
-									<ChevronIcon direction="left" />
-								</button>
-							)}
+							<button
+								aria-controls="expertise-panel"
+								aria-label="Show previous expertise section"
+								className="project-section-nav technical-expertise__previous"
+								onClick={() => {
+									moveView(-1)
+									requestAnimationFrame(() => nextViewRef.current?.focus())
+								}}
+								ref={previousViewRef}
+								type="button"
+							>
+								<ChevronIcon direction="left" />
+							</button>
 							<div className="technical-expertise__views">{panels}</div>
-							{activeView === 'expertise' && (
-								<button
-									aria-controls="skills-panel"
-									aria-label="Show skills"
-									className="project-section-nav technical-expertise__next"
-									onClick={() => {
-										selectView('skills')
-										requestAnimationFrame(() => previousViewRef.current?.focus())
-									}}
-									ref={nextViewRef}
-									type="button"
-								>
-									<ChevronIcon direction="right" />
-								</button>
-							)}
+							<button
+								aria-controls="skills-panel"
+								aria-label="Show next expertise section"
+								className="project-section-nav technical-expertise__next"
+								onClick={() => {
+									moveView(1)
+									requestAnimationFrame(() => previousViewRef.current?.focus())
+								}}
+								ref={nextViewRef}
+								type="button"
+							>
+								<ChevronIcon direction="right" />
+							</button>
 						</div>
 					)}
 					tabs={views}

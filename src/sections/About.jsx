@@ -20,8 +20,7 @@ function About() {
         <div className="about-card">
           <p>
             In 2026, I worked as an intern at Seppo Gamesmiths Oy, updating and
-            refactoring the Nakama backend for Fusion Guards, a live service
-            live-service game.
+            refactoring the Nakama backend for Fusion Guards, a live-service mobile game.
           </p>
           <p>
             I have been involved in organizing the 2024 and 2025 Pelifarmi game jams.

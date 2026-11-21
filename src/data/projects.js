@@ -98,7 +98,7 @@ export const projectSections = [
         smallDescription: 'Save your alien children from humans or die.',
         description: 'Save your alien children from humans or die.',
         stack: [],
-        status: 'Play in browser',
+        status: 'Windows executable',
         image: alienRescueCapsule,
         url: 'https://n1ppe.itch.io/alien-rescue',
       },
@@ -107,7 +107,7 @@ export const projectSections = [
         smallDescription: 'A horror game where you play as a fox navigating a haunted house.',
         description: 'A horror game where you play as a fox navigating a haunted house.',
         stack: ['Unity', 'C#', 'Horror mechanics'],
-        status: 'Play in browser',
+        status: 'Windows executable',
         image: foxInTheHorrorHouseCapsule,
         url: 'https://flanru.itch.io/fox-in-the-horror-house',
       },
@@ -117,7 +117,7 @@ export const projectSections = [
         description: 'This is not a game but a portfolio project: an atmospheric scene created by four artists, with some assistance from programmers.'
                       + ' For this project, I primarily contributed to the environment effects and lighting.',
         stack: ['Unity', 'C#', 'Visual effects'],
-        status: 'Play in browser',
+        status: 'Windows executable',
         image: gatheringCapsule,
         url: 'https://krapulainen.itch.io/gathering',
       },
@@ -127,7 +127,7 @@ export const projectSections = [
         smallDescription: 'A skateboarding game with swinging mechanics.',
         description: 'A skateboarding game with swinging mechanics.',
         stack: ['Unity', 'C#', 'Physics'],
-        status: 'Play in browser',
+        status: 'Windows executable',
         image: swingSkateCapsule,
         url: 'https://n1ppe.itch.io/swing-skate',
       }
@@ -155,7 +155,6 @@ export const projectSections = [
         stack: ['React Native', 'TypeScript', 'Expo'],
         status: 'GitHub repository / school project',
         image: '', // Add the image import and path here
-        url: 'https://github.com/Mobiilikehitysprojekti-R15/Mobiilikehitysprojekti', // Add the URL if available
         repoLink: 'https://github.com/Mobiilikehitysprojekti-R15/Mobiilikehitysprojekti',
       },
 
@@ -171,8 +170,8 @@ export const projectSections = [
         title: 'Turbo Drugs',
         smallDescription: 'A PlayStation 1 game about drug use, developed in 48 hours during the 2025 Retro Game Jam.',
         description: 'A PlayStation 1 game about drug use. Requires a PlayStation 1 console or emulator.',
-        stack: [],
-        status: 'Game jam',
+        stack: ['C++', 'Retro game development'],
+        status: 'Retro Game jam',
         image: turboDrugsCapsule,
         url: 'https://n1ppe.itch.io/turbo-drugs',
       },
@@ -180,8 +179,8 @@ export const projectSections = [
         title: 'Käbylehäm',
         smallDescription: 'Play as a traditional toy called a "Käpylehmä." Developed in 48 hours during the 2024 Pelifarmi Game Jam.',
         description: 'A game developed during a game jam that I organized in 2024. In this game, you play as a traditional toy called a "Käpylehmä."',
-        stack: [],
-        status: 'Game jam',
+        stack: ['Unity', 'C#', 'Shaders'],
+        status: 'Pelifarmi Game jam',
         image: kabylehamCapsule,
         url: 'https://akit4.itch.io/kabyleham',
       },
@@ -192,17 +191,18 @@ export const projectSections = [
                       ' For this game, I created a planetary gravity system using the normal vector of the surface.' +
                       ' I kept the character in the same orientation by taking its forward vector, calculating the cross product with the surface normal to get the right vector,' +
                       ' and rotating the character around the right vector by the angle between the forward vector and the surface normal.',
-        stack: [],
-        status: 'Game jam',
+        stack: ['Unity', 'C#', 'Planetary gravity'],
+        status: 'GMTK Game jam',
         image: kuoleCapsule,
         url: 'https://n1ppe.itch.io/kuole',
       },
       {
         title: 'Escape From Pong',
         smallDescription: 'Escape from Pong. Solo-developed in 48 hours during the 2020 Curious Game Jam.',
-        description: 'A game developed during a game jam.',
-        stack: [],
-        status: 'Game jam',
+        description:
+          'In 1972, you are playing Pong when a glitch pulls you into the game. Escape the Pong world by navigating its platforming challenges. I developed this game alone in 48 hours for the Curious Game Jam 2020.',
+        stack: ['Unity', 'C#', 'Platforming'],
+        status: 'Curious Game jam',
         image: escapeFromPongCapsule,
         url: 'https://n1ppe.itch.io/escape-from-pong',
       }
@@ -210,10 +210,11 @@ export const projectSections = [
   },
 
   /*
+  
   {
-    id: 'personal tinkering',
-    label: 'Personal tinkering',
-    title: 'Personal tinkering.',
+    id: 'other',
+    label: 'Other',
+    title: 'Other projects.',
     description: 'Various personal projects and experiments.',
     projects: [
       {

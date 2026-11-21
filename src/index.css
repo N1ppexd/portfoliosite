@@ -363,19 +363,16 @@ footer a:hover {
     linear-gradient(var(--hero-glitch-blue), var(--hero-glitch-blue)) 11% 89% / 5px 19% no-repeat,
     linear-gradient(var(--hero-glitch-red), var(--hero-glitch-red)) 54% 3% / 18px 22% no-repeat,
     linear-gradient(var(--hero-glitch-red), var(--hero-glitch-red)) 59% 95% / 9px 30% no-repeat,
-    linear-gradient(var(--hero-glitch-blue), var(--hero-glitch-blue)) 78% 4% / 7px 17% no-repeat,
-    linear-gradient(var(--hero-glitch-red), var(--hero-glitch-red)) 98% 90% / 16px 31% no-repeat;
+    linear-gradient(var(--hero-glitch-blue), var(--hero-glitch-blue)) 78% 4% / 7px 17% no-repeat;
   opacity: 0.36;
 }
 
 .hero::after {
   background:
-    linear-gradient(var(--hero-glitch-blue), var(--hero-glitch-blue)) 4% 12% / 9px 34% no-repeat,
+
     linear-gradient(var(--hero-glitch-red), var(--hero-glitch-red)) 18% 100% / 15px 26% no-repeat,
     linear-gradient(var(--hero-glitch-red), var(--hero-glitch-red)) 50% 2% / 12px 37% no-repeat,
-    linear-gradient(var(--hero-glitch-blue), var(--hero-glitch-blue)) 60% 95% / 8px 27% no-repeat,
-    linear-gradient(var(--hero-glitch-red), var(--hero-glitch-red)) 83% 0 / 15px 29% no-repeat,
-    linear-gradient(var(--hero-glitch-blue), var(--hero-glitch-blue)) 96% 87% / 9px 38% no-repeat;
+    linear-gradient(var(--hero-glitch-red), var(--hero-glitch-red)) 83% 0 / 15px 29% no-repeat;
   opacity: 0;
 }
 
@@ -1348,17 +1345,9 @@ h3 {
   --feature-accent: #ffaaa9;
   --feature-copy: #f9e1e2;
   --feature-pattern:
-    linear-gradient(#b92339, #b92339) 3% 6% / 12px 42% no-repeat,
-    linear-gradient(#791a2b, #791a2b) 10% 100% / 18px 34% no-repeat,
     linear-gradient(#a71d32, #a71d32) 24% 0 / 10px 25% no-repeat,
-    linear-gradient(#d12b42, #d12b42) 34% 8% / 14px 42% no-repeat,
     linear-gradient(#871a2d, #871a2d) 39% 85% / 22px 50% no-repeat,
-    linear-gradient(#c9233b, #c9233b) 45% 100% / 11px 32% no-repeat,
-    linear-gradient(#d02b40, #d02b40) 50% 12% / 14px 38% no-repeat,
     linear-gradient(#8e1c30, #8e1c30) 62% 0 / 18px 30% no-repeat,
-    linear-gradient(#ba2238, #ba2238) 74% 100% / 12px 38% no-repeat,
-    linear-gradient(#a71d32, #a71d32) 83% 92% / 20px 46% no-repeat,
-    linear-gradient(#d02b40, #d02b40) 93% 8% / 14px 44% no-repeat,
     linear-gradient(#86192c, #86192c) 98% 100% / 18px 32% no-repeat;
   --feature-radius: 3rem 0.5rem 3rem 0.5rem;
 }
@@ -1421,9 +1410,6 @@ h3 {
   background:
     linear-gradient(#a71d32, #a71d32) 24% 0 / 10px 1rem no-repeat,
     linear-gradient(#d02b40, #d02b40) 50% 0 / 14px 1rem no-repeat,
-    linear-gradient(#8e1c30, #8e1c30) 62% 0 / 18px 1rem no-repeat,
-    linear-gradient(#791a2b, #791a2b) 10% 100% / 18px 1rem no-repeat,
-    linear-gradient(#c9233b, #c9233b) 45% 100% / 11px 1rem no-repeat,
     linear-gradient(#ba2238, #ba2238) 74% 100% / 12px 1rem no-repeat,
     linear-gradient(#86192c, #86192c) 98% 100% / 18px 1rem no-repeat;
   content: '';
@@ -1438,10 +1424,6 @@ h3 {
   background:
     linear-gradient(#f04459, #f04459) 7% 12% / 16px 40% no-repeat,
     linear-gradient(#e6384b, #e6384b) 25% 0 / 22px 35% no-repeat,
-    linear-gradient(#f04459, #f04459) 36% 72% / 16px 48% no-repeat,
-    linear-gradient(#ba263b, #ba263b) 45% 100% / 24px 38% no-repeat,
-    linear-gradient(#e6384b, #e6384b) 62% 0 / 18px 40% no-repeat,
-    linear-gradient(#e6384b, #e6384b) 75% 100% / 20px 42% no-repeat,
     linear-gradient(#f04459, #f04459) 93% 15% / 18px 46% no-repeat;
   content: '';
   inset: -1rem 0;
@@ -2037,9 +2019,10 @@ footer a {
   .project-tabs {
     gap: 1.25rem;
     margin-bottom: 2rem;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    overflow-x: visible;
     scrollbar-width: none;
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .project-tabs::-webkit-scrollbar {
