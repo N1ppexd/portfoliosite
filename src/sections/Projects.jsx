@@ -3,10 +3,10 @@ import { ProjectCard } from '../components/ProjectCard.jsx'
 import { ProjectCover } from '../components/ProjectCover.jsx'
 import { ProjectGallery } from '../components/ProjectGallery.jsx'
 import { ChevronIcon } from '../components/ChevronIcon.jsx'
+import Tabs from '../components/Tabs.jsx'
 import { renderInlineHighlight } from '../components/renderInlineHighlight.jsx'
 
 const ROTATION_DELAY = 10_000
-const SWIPE_THRESHOLD = 50
 
 function Projects({ sections }) {
 
@@ -25,7 +25,6 @@ function Projects({ sections }) {
   const sectionRef = useRef(null)
   const closeButtonRef = useRef(null)
   const triggerRef = useRef(null)
-  const sectionTouchStartRef = useRef(null)
   const activeSection = sections.find((section) => section.id === activeSectionId)
 
   const moveToSection = useCallback((direction) => {
@@ -43,13 +42,13 @@ function Projects({ sections }) {
     setRotationPaused(true)
   }
 
-  const selectSection = (sectionId) => {
+  const selectSection = (sectionId, direction) => {
     const currentIndex = sections.findIndex((section) => section.id === activeSectionId)
     const nextIndex = sections.findIndex((section) => section.id === sectionId)
 
     if (currentIndex === nextIndex) return
 
-    setSectionDirection(nextIndex > currentIndex ? 'next' : 'previous')
+    setSectionDirection(direction ?? (nextIndex > currentIndex ? 'next' : 'previous'))
     setActiveSectionId(sectionId)
   }
 
@@ -124,32 +123,6 @@ function Projects({ sections }) {
     setSelectedProject(project)
   }
 
-  const handleSectionTouchStart = (event) => {
-    const touch = event.touches[0]
-    sectionTouchStartRef.current = { x: touch.clientX, y: touch.clientY }
-  }
-
-  const handleSectionTouchEnd = (event) => {
-    if (!sectionTouchStartRef.current) return
-
-    const touch = event.changedTouches[0]
-    const deltaX = touch.clientX - sectionTouchStartRef.current.x
-    const deltaY = touch.clientY - sectionTouchStartRef.current.y
-    sectionTouchStartRef.current = null
-
-    // Only horizontal swipes change collections; vertical gestures remain page scrolling.
-    if (
-      sections.length < 2 ||
-      Math.abs(deltaX) < SWIPE_THRESHOLD ||
-      Math.abs(deltaX) <= Math.abs(deltaY)
-    ) {
-      return
-    }
-
-    navigateToSection(deltaX < 0 ? 1 : -1)
-    event.preventDefault()
-  }
-
   return (
     <section
       className="section projects"
@@ -173,74 +146,53 @@ function Projects({ sections }) {
           </div>
         </div>
 
-        <div className="project-navigation">
-          <div
-            className="project-tabs"
-            onTouchEnd={handleSectionTouchEnd}
-            onTouchStart={handleSectionTouchStart}
-            role="tablist"
-            aria-label="Project collections"
-          >
-            {sections.map((section) => (
-              <button
-                aria-controls={`${section.id}-projects`}
-                aria-selected={section.id === activeSectionId}
-                className="project-tab"
-                id={`${section.id}-tab`}
-                key={section.id}
-                onClick={() => selectSection(section.id)}
-                role="tab"
-                type="button"
-              >
-                {section.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {sections.length > 1 && (
-          <button
-            className="project-rotation-toggle"
-            onClick={() => setRotationPaused((paused) => !paused)}
-            type="button"
-          >
-            {rotationPaused ? 'Resume' : 'Pause'} automatic switching
-          </button>
-        )}
-
-        <div className="project-grid-navigation">
-          {sections.length > 1 && (
+        <Tabs
+          activeId={activeSectionId}
+          afterTabs={sections.length > 1 && (
             <button
-              aria-label="Previous project section"
-              className="project-section-nav"
-              onClick={() => navigateToSection(-1)}
+              className="project-rotation-toggle"
+              onClick={() => setRotationPaused((paused) => !paused)}
               type="button"
             >
-              <ChevronIcon direction="left" />
+              {rotationPaused ? 'Resume' : 'Pause'} automatic switching
             </button>
           )}
-          <div
-            aria-labelledby={`${activeSection.id}-tab`}
-            className={`project-grid project-grid--${sectionDirection}`}
-            id={`${activeSection.id}-projects`}
-            key={activeSection.id}
-            role="tabpanel"
-          >
-            {activeSection.projects.map((project) => (
-              <ProjectCard key={project.title} onSelect={selectProject} project={project} />
-            ))}
-          </div>
-          {sections.length > 1 && (
-            <button
-              aria-label="Next project section"
-              className="project-section-nav"
-              onClick={() => navigateToSection(1)}
-              type="button"
-            >
-              <ChevronIcon direction="right" />
-            </button>
+          direction={sectionDirection}
+          label="Project collections"
+          onChange={selectSection}
+          onSwipe={navigateToSection}
+          panelClassName="project-grid"
+          renderContent={() => activeSection.projects.map((project) => (
+            <ProjectCard key={project.title} onSelect={selectProject} project={project} />
+          ))}
+          renderPanels={(panels) => (
+            <div className="project-grid-navigation">
+              {sections.length > 1 && (
+                <button
+                  aria-label="Previous project section"
+                  className="project-section-nav"
+                  onClick={() => navigateToSection(-1)}
+                  type="button"
+                >
+                  <ChevronIcon direction="left" />
+                </button>
+              )}
+              {panels}
+              {sections.length > 1 && (
+                <button
+                  aria-label="Next project section"
+                  className="project-section-nav"
+                  onClick={() => navigateToSection(1)}
+                  type="button"
+                >
+                  <ChevronIcon direction="right" />
+                </button>
+              )}
+            </div>
           )}
-        </div>
+          swipeTabs
+          tabs={sections}
+        />
       </div>
 
       {selectedProject && (

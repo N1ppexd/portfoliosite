@@ -1,5 +1,6 @@
 import { projectSections } from './data/projects.js'
 import { experience } from './data/experience.js'
+import { involvements } from './data/involvements.js'
 import { skills } from './data/skills.js'
 import { expertiseAreas } from './data/techexpertise.js'
 import { useEffect, useState } from 'react'
@@ -8,10 +9,10 @@ import Contact from './sections/Contact.jsx'
 import Clouds from './components/Clouds.jsx'
 import Experience from './sections/Experience.jsx'
 import Hero from './sections/Hero.jsx'
+import Involvements from './sections/Involvements.jsx'
 import Projects from './sections/Projects.jsx'
 import Skydiving from './components/Skydiving.jsx'
 import TechnicalExpertise from './sections/Expertise.jsx'
-import Skills from './sections/Skills.jsx'
 
 const currentYear = new Date().getFullYear()
 
@@ -26,7 +27,7 @@ function App() {
   }, [isDarkMode])
 
   useEffect(() => {
-    const ids = ['about', 'projects', 'expertise', 'skills', 'experience', 'contact']
+    const ids = ['involvements', 'expertise', 'projects', 'contact']
 
 
     const updateActiveSection = () => {
@@ -57,11 +58,9 @@ function App() {
           NH
         </a>
         <nav aria-label="Main navigation">
-          <a href="#about" aria-current={activeSection === 'about' ? 'page' : undefined}>About</a>
+          <a href="#involvements" aria-current={activeSection === 'involvements' ? 'page' : undefined}>Involvements</a>
+          <a href="#expertise" aria-current={activeSection === 'expertise' ? 'page' : undefined}>Expertise &amp; skills</a>
           <a href="#projects" aria-current={activeSection === 'projects' ? 'page' : undefined}>Projects</a>
-          <a href="#expertise" aria-current={activeSection === 'expertise' ? 'page' : undefined}>Expertise</a>
-          <a href="#skills" aria-current={activeSection === 'skills' ? 'page' : undefined}>Skills</a>
-          <a href="#experience" aria-current={activeSection === 'experience' ? 'page' : undefined}>Experience</a>
           <a href="#contact" aria-current={activeSection === 'contact' ? 'page' : undefined}>Contact</a>
         </nav>
         <button
@@ -84,9 +83,9 @@ function App() {
       <main id="top">
         <Hero />
         <About />
+        <Involvements involvements={involvements} />
+        <TechnicalExpertise expertiseAreas={expertiseAreas} skills={skills} />
         <Projects sections={projectSections} />
-        <TechnicalExpertise expertiseAreas={expertiseAreas} />
-        <Skills skills={skills} />
         <Experience experience={experience} />
         <Contact />
       </main>

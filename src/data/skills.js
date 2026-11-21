@@ -12,5 +12,9 @@ export const skills = [
   'Node.js',
   'SQL',
   'MongoDB',
-  'Docker'
+  'Docker',
+  'Linux',
+  'Git',
+  'Agile methodologies',
+  'Firebase'
 ]

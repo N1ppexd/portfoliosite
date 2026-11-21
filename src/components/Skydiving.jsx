@@ -52,8 +52,7 @@ function Skydiving() {
       }, 0)
       fall.to(skydiverRef.current, {
         keyframes: {
-          //x: [0, 0.25 * window.innerWidth, 0.5 * window.innerWidth, 0.75 * window.innerWidth, window.innerWidth - skydiverRef.current.clientWidth],
-          x: [0, 10, 0 , 10, 0],
+          x: [0, -6, 0, -6, 0],
           easeEach: 'sine.inOut',
         },
         duration: 1,
