@@ -502,6 +502,7 @@ h1 span {
 .technical-expertise__header {
   margin-bottom: 3rem;
   max-width: 720px;
+  scroll-margin-top: 6rem;
 }
 
 .technical-expertise__header h2 {
@@ -921,38 +922,23 @@ h2 {
 }
 
 .project-art--fallback {
-  align-items: flex-end;
-  background:
-    linear-gradient(135deg, #176e9d, #43c7a6);
-  color: var(--color-text);
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  font-weight: 700;
-  letter-spacing: -0.06em;
-  padding: 1.5rem;
-  text-transform: none;
+  background: #176e9d;
 }
 
 .project-art--fallback-2 {
-  background:
-    linear-gradient(135deg, #247da7, #80d5c2);
+  background: #247da7;
 }
 
 .project-art--fallback-3 {
-  background:
-    linear-gradient(135deg, #276b96, #8acbe8);
+  background: #276b96;
 }
 
 .project-art--fallback-4 {
-  background:
-    linear-gradient(135deg, #2c617c, #70b38e);
+  background: #2c617c;
 }
 
 .project-dialog-art.project-art--fallback {
-  align-items: center;
   height: 280px;
-  justify-content: center;
-  padding: 2rem;
-  text-align: center;
 }
 
 .project-content {
@@ -1413,7 +1399,6 @@ h3 {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  margin-top: 3rem;
 }
 
 .skill-card {
@@ -1581,19 +1566,19 @@ footer a {
 }
 
 :root[data-theme='dark'] .project-art--fallback {
-  background: linear-gradient(135deg, #25105f, #ff3c3c);
+  background: #25105f;
 }
 
 :root[data-theme='dark'] .project-art--fallback-2 {
-  background: linear-gradient(135deg, #4c1020, #ff4d5a);
+  background: #4c1020;
 }
 
 :root[data-theme='dark'] .project-art--fallback-3 {
-  background: linear-gradient(135deg, #5f102e, #ff348c);
+  background: #5f102e;
 }
 
 :root[data-theme='dark'] .project-art--fallback-4 {
-  background: linear-gradient(135deg, #1f1018, #b52e4c);
+  background: #1f1018;
 }
 
 :root[data-theme='dark'] .skill-card span {
