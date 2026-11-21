@@ -25,6 +25,9 @@
   --color-tag-text: #315a70;
   --color-eyebrow-prefix: #237b91;
   --color-contact-prefix: #237b91;
+  --skydiver-size: clamp(36px, 7vw, 100px);
+  --skydiver-space: calc(var(--skydiver-size) + 2.5rem);
+  --page-side-padding: 2rem;
 
   background: var(--color-background);
   color: var(--color-text);
@@ -207,8 +210,8 @@ main,
 footer {
   max-width: 1280px;
   margin: 0 auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: var(--page-side-padding);
+  padding-right: var(--skydiver-space);
   position: relative;
   z-index: 1;
 }
@@ -354,10 +357,14 @@ footer a:hover {
   opacity: 0.8;
   pointer-events: none;
   position: fixed;
-  left: 0;
+  right: max(12px, calc((100vw - 1280px) / 2 + 12px));
   top: 5vh;
-  width: clamp(56px, 8vw, 110px);
+  width: var(--skydiver-size);
   z-index: 4;
+}
+
+body:has(.project-dialog-backdrop) .skydiving-position {
+  visibility: hidden;
 }
 
 .skydiver {
@@ -509,10 +516,30 @@ h1 span {
   max-width: 500px;
 }
 
+.technical-expertise__pagination {
+  align-items: start;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1.75rem minmax(0, 1fr) 1.75rem;
+}
+
+.technical-expertise__previous {
+  grid-column: 1;
+  grid-row: 1;
+}
+
 .technical-expertise__grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-column: 2;
+  grid-row: 1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+}
+
+.technical-expertise__next {
+  grid-column: 3;
+  grid-row: 1;
 }
 
 .procedural-graph-demo {
@@ -1223,11 +1250,19 @@ h3 {
 }
 
 .contact {
+  color: #effff1;
+  isolation: isolate;
+  padding: clamp(2rem, 9vw, 4rem) 0;
+  position: relative;
+}
+
+.contact::before {
   background: var(--color-accent-soft);
   border-top: 4px solid #2f7040;
-  color: #effff1;
-  margin: 0 calc(50% - 50vw);
-  padding: clamp(2rem, 9vw, 4rem) max(2rem, calc((100vw - 1280px) / 2));
+  content: '';
+  inset: 0 -100vw;
+  position: absolute;
+  z-index: -1;
 }
 
 .contact .eyebrow {
@@ -1269,7 +1304,7 @@ footer {
   margin-right: calc(50% - 50vw);
   max-width: none;
   padding-left: max(2rem, calc((100vw - 1280px) / 2));
-  padding-right: max(2rem, calc((100vw - 1280px) / 2));
+  padding-right: calc(max(0px, (100vw - 1280px) / 2) + var(--skydiver-space));
   font-size: 0.67rem;
   justify-content: space-between;
   letter-spacing: 0.04em;
@@ -1348,9 +1383,11 @@ footer a {
 }
 
 :root[data-theme='dark'] .contact {
-  background: var(--color-accent-soft);
-  border-top-color: var(--color-accent);
   color: var(--color-ink);
+}
+
+:root[data-theme='dark'] .contact::before {
+  border-top-color: var(--color-accent);
 }
 
 :root[data-theme='dark'] .contact .eyebrow {
@@ -1385,27 +1422,31 @@ footer a {
   color: var(--color-text-muted);
 }
 
-@media (max-width: 900px) {
+@media (min-width: 1200px) {
   .technical-expertise__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+}
 
+@media (max-width: 900px) {
   .project-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 640px) {
-  .skydiving-position {
-    left: auto;
-    right: 14px;
+@media (max-width: 480px) {
+  :root {
+    --skydiver-space: var(--page-side-padding);
   }
 
-  .site-header,
-  main,
-  footer {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+  .skydiving-position {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --page-side-padding: 1.25rem;
   }
 
   .site-header {
@@ -1481,7 +1522,7 @@ footer a {
   .hero-portrait {
     height: min(110vw, 480px);
     margin: 3rem auto 0;
-    width: min(82vw, 390px);
+    width: min(100%, 82vw, 390px);
   }
 
   .about-content,

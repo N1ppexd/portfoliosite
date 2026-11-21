@@ -1,12 +1,42 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-import ProceduralGraph from '../components/ProceduralGraph.jsx'
+import { ChevronIcon } from '../components/ChevronIcon.jsx'
+import ExpertiseDialog from '../components/dialocts/ExpertiseDialog.jsx'
 
 export default function TechnicalExpertise({ expertiseAreas }) {
 	const [selectedArea, setSelectedArea] = useState(null)
 	const closeButtonRef = useRef(null)
 	const triggerRef = useRef(null)
+	const headingRef = useRef(null)
+	const previousPageRef = useRef(null)
+	const nextPageRef = useRef(null)
+
+	const [pageElementCount, setPageElementCount] = useState(
+		() => window.matchMedia('(max-width: 640px)').matches ? 2 : 4,
+	)
+	const [firstVisibleIndex, setFirstVisibleIndex] = useState(0)
+	const pageIndex = Math.min(
+		Math.floor(firstVisibleIndex / pageElementCount),
+		Math.max(0, Math.ceil(expertiseAreas.length / pageElementCount) - 1),
+	)
+	const elementIndex = pageIndex * pageElementCount
+	const hasMorePages = elementIndex + pageElementCount < expertiseAreas.length
+
+	const restoreFocus = () => {
+		requestAnimationFrame(() => {
+			const target = triggerRef.current?.isConnected ? triggerRef.current : headingRef.current
+			target?.focus()
+		})
+	}
+
+	useEffect(() => {
+		const narrowScreen = window.matchMedia('(max-width: 640px)')
+		const updatePageSize = () => setPageElementCount(narrowScreen.matches ? 2 : 4)
+		updatePageSize()
+		narrowScreen.addEventListener('change', updatePageSize)
+		return () => narrowScreen.removeEventListener('change', updatePageSize)
+	}, [])
 
 	useEffect(() => {
 		if (!selectedArea) return undefined
@@ -19,7 +49,7 @@ export default function TechnicalExpertise({ expertiseAreas }) {
 		const handleKeyDown = (event) => {
 			if (event.key === 'Escape') {
 				setSelectedArea(null)
-				requestAnimationFrame(() => triggerRef.current?.focus())
+				restoreFocus()
 			}
 		}
 
@@ -32,22 +62,38 @@ export default function TechnicalExpertise({ expertiseAreas }) {
 
 	const closeDetails = () => {
 		setSelectedArea(null)
-		requestAnimationFrame(() => triggerRef.current?.focus())
+		restoreFocus()
 	}
 
 	return (
 		<section className="technical-expertise" id="expertise" aria-labelledby="expertise-title" href="#expertise">
 			<div className="technical-expertise__inner">
 				<header className="technical-expertise__header">
-					<h2 id="expertise-title">Technical expertise</h2>
+					<h2 id="expertise-title" ref={headingRef} tabIndex={-1}>Technical expertise</h2>
 					<p className="technical-expertise__intro">
 						A closer look at the ideas, tools, and problem-solving approaches I
 						bring to my projects.
 					</p>
 				</header>
 
-				<div className="technical-expertise__grid">
-					{expertiseAreas.map((area) => (
+				<div className="technical-expertise__pagination">
+					{pageIndex > 0 && (
+						<button
+							aria-controls="expertise-grid"
+							aria-label="Previous expertise page"
+							className="project-section-nav technical-expertise__previous"
+							onClick={() => {
+								setFirstVisibleIndex(elementIndex - pageElementCount)
+								if (pageIndex === 1) requestAnimationFrame(() => nextPageRef.current?.focus())
+							}}
+							ref={previousPageRef}
+							type="button"
+						>
+							<ChevronIcon direction="left" />
+						</button>
+					)}
+					<div className="technical-expertise__grid" id="expertise-grid">
+					{expertiseAreas.slice(elementIndex, elementIndex + pageElementCount).map((area) => (
 						<article className="expertise-card" key={area.number}>
 							<button
 								className="expertise-card__button"
@@ -71,60 +117,28 @@ export default function TechnicalExpertise({ expertiseAreas }) {
 							</button>
 						</article>
 					))}
-				</div>
-				
-			</div>
-
-			{selectedArea && (
-				<div
-					aria-labelledby="expertise-details-title"
-					aria-modal="true"
-					className="project-dialog-backdrop"
-					onClick={(event) => {
-						if (event.target === event.currentTarget) closeDetails()
-					}}
-					role="dialog"
-				>
-					<div className="project-dialog expertise-dialog">
+					</div>
+					{hasMorePages && (
 						<button
-							aria-label="Close expertise details"
-							className="project-dialog-close"
-							onClick={closeDetails}
-							ref={closeButtonRef}
+							aria-controls="expertise-grid"
+							aria-label="Next expertise page"
+							className="project-section-nav technical-expertise__next"
+							onClick={() => {
+								setFirstVisibleIndex(elementIndex + pageElementCount)
+								if (elementIndex + 2 * pageElementCount >= expertiseAreas.length) {
+									requestAnimationFrame(() => previousPageRef.current?.focus())
+								}
+							}}
+							ref={nextPageRef}
 							type="button"
 						>
-							Close
+							<ChevronIcon direction="right" />
 						</button>
-						<div className="project-dialog-content">
-							<p className="project-status">Technical expertise</p>
-							<h3 id="expertise-details-title">{selectedArea.title}</h3>
-							{selectedArea.details.map((detail) => (
-								<p key={detail}>{detail}</p>
-							))}
-							{selectedArea.title === 'Procedural generation' && (
-								<div className="project-dialog-content">
-									<p className="technical-expertise__eyebrow">System example</p>
-									<h3 id="expertise-details-title">Full generated level graph for Shifter</h3>
-									<p>
-										This is how the world levels were structured in Shifter. This graph was generated at the start, and each node represents a level in the game world.
-										
-									</p>
-									<p>
-										Some levels were procedurally generated, while others were designed manually to fit the game's narrative and gameplay requirements.
-										Each area in the graph corresponds to a different section of the game world, and the connections between nodes represent the progression from one level to the next.
-									</p>
-									<ProceduralGraph />
-								</div>
-							)}
-							<ul aria-label={`${selectedArea.title} topics`}>
-								{selectedArea.topics.map((topic) => (
-									<li key={topic}>{topic}</li>
-								))}
-							</ul>
-						</div>
-					</div>
+					)}
 				</div>
-			)}
+			</div>
+
+			<ExpertiseDialog closeButtonRef={closeButtonRef} closeDetails={closeDetails} selectedArea={selectedArea} />
 		</section>
 	);
 }
