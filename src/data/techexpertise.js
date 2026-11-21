@@ -53,7 +53,7 @@ export const expertiseAreas = [
 			"For Nuclear Fall, I created a terrain generator using Perlin noise and custom curves to shape a hexagon-grid world. I used the flatter parts of the generated terrain to place cities and towns, then connected them with roads using the A* algorithm. The road system changed the weights of tiles based on their altitude, making routes avoid dramatic elevation changes instead of simply choosing the shortest path.",
 		],
 		topics: ["Rule-based systems", "Iteration", "Balancing"],
-	},
+	},/*
 	{
 		number: "05",
 		title: "Collaboration and Communication",
@@ -79,5 +79,5 @@ export const expertiseAreas = [
 			"By staying current with industry trends, I can bring innovative solutions to the team and projects."
 		],
 		topics: ["Adaptability", "Continuous learning", "Innovation"],
-	}
+	}*/
 ];

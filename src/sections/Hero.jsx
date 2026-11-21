@@ -1,11 +1,15 @@
 import portrait from '../pictures/image.png'
 
 function Hero() {
+  const name = 'Niilo Hanni'
+
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-content">
         <h1 id="hero-title">
-          Niilo Hanni
+          {name}
+          <span aria-hidden="true" className="hero-title__glitch hero-title__glitch--red">{name}</span>
+          <span aria-hidden="true" className="hero-title__glitch hero-title__glitch--blue">{name}</span>
         </h1>
         <p className="hero-copy">
           I have many years of experience building games with Unity and C#.
@@ -28,7 +32,9 @@ function Hero() {
           </a>
         </div>
       </div>
-      <img className="hero-portrait" src={portrait} alt="Niilo Hanni" />
+      <div className="hero-portrait-frame">
+        <img className="hero-portrait" src={portrait} alt="Niilo Hanni" />
+      </div>
     </section>
   )
 }

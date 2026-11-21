@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ChevronIcon } from '../components/ChevronIcon.jsx'
+import { useSwipe } from '../components/useSwipe.js'
 
 const ROTATION_DELAY = 10_000
 
@@ -8,6 +9,7 @@ function Involvements({ involvements }) {
   const videoRef = useRef(null)
   const videoInteractedRef = useRef(false)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [slideDirection, setSlideDirection] = useState('next')
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
@@ -62,6 +64,7 @@ function Involvements({ involvements }) {
 
     const timer = window.setTimeout(() => {
       videoInteractedRef.current = false
+      setSlideDirection('next')
       setActiveIndex((currentIndex) => (currentIndex + 1) % involvements.length)
     }, ROTATION_DELAY)
 
@@ -78,12 +81,16 @@ function Involvements({ involvements }) {
   ])
 
   const moveToProject = (direction) => {
+    if (involvements.length < 2) return
     videoInteractedRef.current = false
     setIsVideoPlaying(false)
+    setSlideDirection(direction > 0 ? 'next' : 'previous')
     setActiveIndex((currentIndex) =>
       (currentIndex + direction + involvements.length) % involvements.length,
     )
   }
+
+  const swipeHandlers = useSwipe(moveToProject)
 
   const handleVideoInteraction = (event) => {
     videoInteractedRef.current = true
@@ -152,13 +159,22 @@ function Involvements({ involvements }) {
         <article
           aria-label={`${activeIndex + 1} of ${involvements.length}: ${activeInvolvement.title}`}
           aria-roledescription="slide"
-          className="involvement-card"
+          className={`involvement-card involvement-card--${slideDirection}`}
           key={activeInvolvement.title}
+          {...swipeHandlers}
           role="group"
         >
           <div className="involvement-card__content">
             <p className="project-status">Featured project</p>
-            <h3>{activeInvolvement.title}</h3>
+            <h3>
+              {activeInvolvement.title}
+              {activeInvolvement.theme === 'shifter' && (
+                <>
+                  <span aria-hidden="true" className="involvement-title-glitch involvement-title-glitch--red">{activeInvolvement.title}</span>
+                  <span aria-hidden="true" className="involvement-title-glitch involvement-title-glitch--light">{activeInvolvement.title}</span>
+                </>
+              )}
+            </h3>
             <p>{activeInvolvement.description}</p>
             <a
               className="involvement-card__link"

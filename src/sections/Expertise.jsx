@@ -3,30 +3,30 @@ import { useEffect, useRef, useState } from 'react'
 
 import { ChevronIcon } from '../components/ChevronIcon.jsx'
 import ExpertiseDialog from '../components/dialocts/ExpertiseDialog.jsx'
+import Tabs from '../components/Tabs.jsx'
 import Skills from './Skills.jsx'
+
+const views = [
+	{ id: 'expertise', label: 'Expertise', panelId: 'expertise-panel' },
+	{ id: 'skills', label: 'Skills', panelId: 'skills-panel' },
+]
 
 export default function TechnicalExpertise({ expertiseAreas, skills }) {
 	const [selectedArea, setSelectedArea] = useState(null)
 	const [activeView, setActiveView] = useState(
 		() => window.location.hash === '#skills' ? 'skills' : 'expertise',
 	)
+	const [viewDirection, setViewDirection] = useState('next')
 	const closeButtonRef = useRef(null)
 	const triggerRef = useRef(null)
 	const headingRef = useRef(null)
-	const previousPageRef = useRef(null)
-	const nextPageRef = useRef(null)
-	const tabRefs = useRef({})
+	const previousViewRef = useRef(null)
+	const nextViewRef = useRef(null)
 
-	const [pageElementCount, setPageElementCount] = useState(
-		() => window.matchMedia('(max-width: 640px)').matches ? 2 : 4,
-	)
-	const [firstVisibleIndex, setFirstVisibleIndex] = useState(0)
-	const pageIndex = Math.min(
-		Math.floor(firstVisibleIndex / pageElementCount),
-		Math.max(0, Math.ceil(expertiseAreas.length / pageElementCount) - 1),
-	)
-	const elementIndex = pageIndex * pageElementCount
-	const hasMorePages = elementIndex + pageElementCount < expertiseAreas.length
+	const selectView = (view, direction) => {
+		setViewDirection(direction ?? (view === 'skills' ? 'next' : 'previous'))
+		setActiveView(view)
+	}
 
 	const restoreFocus = () => {
 		requestAnimationFrame(() => {
@@ -39,20 +39,12 @@ export default function TechnicalExpertise({ expertiseAreas, skills }) {
 		const handleHashChange = () => {
 			if (window.location.hash === '#skills') {
 				setSelectedArea(null)
-				setActiveView('skills')
+				selectView('skills')
 			}
-			if (window.location.hash === '#expertise') setActiveView('expertise')
+			if (window.location.hash === '#expertise') selectView('expertise')
 		}
 		window.addEventListener('hashchange', handleHashChange)
 		return () => window.removeEventListener('hashchange', handleHashChange)
-	}, [])
-
-	useEffect(() => {
-		const narrowScreen = window.matchMedia('(max-width: 640px)')
-		const updatePageSize = () => setPageElementCount(narrowScreen.matches ? 2 : 4)
-		updatePageSize()
-		narrowScreen.addEventListener('change', updatePageSize)
-		return () => narrowScreen.removeEventListener('change', updatePageSize)
 	}, [])
 
 	useEffect(() => {
@@ -82,17 +74,6 @@ export default function TechnicalExpertise({ expertiseAreas, skills }) {
 		restoreFocus()
 	}
 
-	const handleTabKeyDown = (event) => {
-		if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
-
-		event.preventDefault()
-		const nextView = event.key === 'Home' ? 'expertise'
-			: event.key === 'End' ? 'skills'
-			: activeView === 'expertise' ? 'skills' : 'expertise'
-		setActiveView(nextView)
-		tabRefs.current[nextView]?.focus()
-	}
-
 	return (
 		<section className="technical-expertise" id="expertise" aria-labelledby="expertise-title">
 			<div className="technical-expertise__inner">
@@ -103,93 +84,79 @@ export default function TechnicalExpertise({ expertiseAreas, skills }) {
 					</p>
 				</header>
 
-				<div className="project-tabs" role="tablist" aria-label="Expertise and skills" onKeyDown={handleTabKeyDown}>
-					{[
-						{ id: 'expertise', label: 'Expertise' },
-						{ id: 'skills', label: 'Skills' },
-					].map(({ id, label }) => (
-						<button
-							aria-controls={`${id}-panel`}
-							aria-selected={activeView === id}
-							className="project-tab"
-							id={`${id}-view-tab`}
-							key={id}
-							onClick={() => setActiveView(id)}
-							ref={(element) => { tabRefs.current[id] = element }}
-							role="tab"
-							tabIndex={activeView === id ? 0 : -1}
-							type="button"
-						>
-							{label}
-						</button>
-					))}
-				</div>
-
-				<div aria-labelledby="expertise-view-tab" hidden={activeView !== 'expertise'} id="expertise-panel" role="tabpanel" tabIndex={0}>
-					<div className="technical-expertise__pagination">
-						{pageIndex > 0 && (
-							<button
-								aria-controls="expertise-grid"
-								aria-label="Previous expertise page"
-								className="project-section-nav technical-expertise__previous"
-								onClick={() => {
-									setFirstVisibleIndex(elementIndex - pageElementCount)
-									if (pageIndex === 1) requestAnimationFrame(() => nextPageRef.current?.focus())
-								}}
-								ref={previousPageRef}
-								type="button"
-							>
-								<ChevronIcon direction="left" />
-							</button>
-						)}
-						<div className="technical-expertise__grid" id="expertise-grid">
-							{expertiseAreas.slice(elementIndex, elementIndex + pageElementCount).map((area) => (
-								<article className="expertise-card" key={area.number}>
-									<button
-										className="expertise-card__button"
-										onClick={(event) => {
-											triggerRef.current = event.currentTarget
-											setSelectedArea(area)
-										}}
-										type="button"
-									>
-										<span className="expertise-card__number" aria-hidden="true">
-											{area.number}
-										</span>
-										<h3>{area.title}</h3>
-										<p>{area.description}</p>
-										<ul className="expertise-card__topics" aria-label={`${area.title} topics`}>
-											{area.topics.map((topic) => (
-												<li key={topic}>{topic}</li>
-											))}
-										</ul>
-										<span className="expertise-card__prompt">View details <span aria-hidden="true">↗</span></span>
-									</button>
-								</article>
-							))}
+				<Tabs
+					activeId={activeView}
+					direction={viewDirection}
+					label="Expertise and skills"
+					onChange={(view, direction) => {
+						if (view !== activeView) selectView(view, direction)
+					}}
+					onSwipe={(direction) => {
+						if (direction > 0 && activeView === 'expertise') selectView('skills')
+						if (direction < 0 && activeView === 'skills') selectView('expertise')
+					}}
+					renderContent={(view) => view === 'expertise' ? (
+							<div className="technical-expertise__grid" id="expertise-grid">
+								{expertiseAreas.map((area) => (
+									<article className="expertise-card" key={area.number}>
+										<button
+											className="expertise-card__button"
+											onClick={(event) => {
+												triggerRef.current = event.currentTarget
+												setSelectedArea(area)
+											}}
+											type="button"
+										>
+											<h3>{area.title}</h3>
+											<p>{area.description}</p>
+											<ul className="expertise-card__topics" aria-label={`${area.title} topics`}>
+												{area.topics.map((topic) => (
+													<li key={topic}>{topic}</li>
+												))}
+											</ul>
+											<span className="expertise-card__prompt">View details <span aria-hidden="true">↗</span></span>
+										</button>
+									</article>
+								))}
+							</div>
+					) : <Skills skills={skills} />}
+					renderPanels={(panels) => (
+						<div className="technical-expertise__pagination">
+							{activeView === 'skills' && (
+								<button
+									aria-controls="expertise-panel"
+									aria-label="Show expertise"
+									className="project-section-nav technical-expertise__previous"
+									onClick={() => {
+										selectView('expertise')
+										requestAnimationFrame(() => nextViewRef.current?.focus())
+									}}
+									ref={previousViewRef}
+									type="button"
+								>
+									<ChevronIcon direction="left" />
+								</button>
+							)}
+							<div className="technical-expertise__views">{panels}</div>
+							{activeView === 'expertise' && (
+								<button
+									aria-controls="skills-panel"
+									aria-label="Show skills"
+									className="project-section-nav technical-expertise__next"
+									onClick={() => {
+										selectView('skills')
+										requestAnimationFrame(() => previousViewRef.current?.focus())
+									}}
+									ref={nextViewRef}
+									type="button"
+								>
+									<ChevronIcon direction="right" />
+								</button>
+							)}
 						</div>
-						{hasMorePages && (
-							<button
-								aria-controls="expertise-grid"
-								aria-label="Next expertise page"
-								className="project-section-nav technical-expertise__next"
-								onClick={() => {
-									setFirstVisibleIndex(elementIndex + pageElementCount)
-									if (elementIndex + 2 * pageElementCount >= expertiseAreas.length) {
-										requestAnimationFrame(() => previousPageRef.current?.focus())
-									}
-								}}
-								ref={nextPageRef}
-								type="button"
-							>
-								<ChevronIcon direction="right" />
-							</button>
-						)}
-					</div>
-				</div>
-				<div aria-labelledby="skills-view-tab" hidden={activeView !== 'skills'} id="skills-panel" role="tabpanel" tabIndex={0}>
-					<Skills skills={skills} />
-				</div>
+					)}
+					tabs={views}
+				/>
 			</div>
 
 			<ExpertiseDialog closeButtonRef={closeButtonRef} closeDetails={closeDetails} selectedArea={selectedArea} />
