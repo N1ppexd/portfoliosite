@@ -70,6 +70,7 @@
 }
 
 html {
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 
@@ -106,10 +107,12 @@ body::after {
 }
 
 .cloud-layer {
+  height: 100%;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
   position: fixed;
+  width: 100%;
   z-index: 0;
 }
 
@@ -1689,9 +1692,13 @@ h3 {
 .contact::before {
   background: var(--color-accent-soft);
   border-top: 4px solid #27292b;
+  bottom: 0;
   content: '';
-  inset: 0 -100vw;
+  left: calc(50% + (var(--skydiver-space) - var(--page-side-padding)) / 2);
   position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 100vw;
   z-index: -1;
 }
 

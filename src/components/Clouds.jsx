@@ -66,10 +66,10 @@ function Clouds() {
     let isDisposed = false
 
     const resize = () => {
-      const width = window.innerWidth
+      const width = document.documentElement.clientWidth
       const height = window.innerHeight
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-      renderer.setSize(width, height, false)
+      renderer.setSize(width, height)
       camera.left = -width / 2
       camera.right = width / 2
       camera.top = height / 2
@@ -78,7 +78,7 @@ function Clouds() {
     }
 
     const render = () => {
-      const width = window.innerWidth
+      const width = document.documentElement.clientWidth
       const height = window.innerHeight
       const documentHeight = document.documentElement.scrollHeight
       const scrollY = window.scrollY
