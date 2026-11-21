@@ -27,7 +27,7 @@ function App() {
   }, [isDarkMode])
 
   useEffect(() => {
-    const ids = ['about', 'involvements', 'expertise', 'projects', 'experience', 'contact']
+    const ids = ['involvements', 'expertise', 'projects', 'contact']
 
 
     const updateActiveSection = () => {
@@ -58,11 +58,9 @@ function App() {
           NH
         </a>
         <nav aria-label="Main navigation">
-          <a href="#about" aria-current={activeSection === 'about' ? 'page' : undefined}>About</a>
           <a href="#involvements" aria-current={activeSection === 'involvements' ? 'page' : undefined}>Involvements</a>
           <a href="#expertise" aria-current={activeSection === 'expertise' ? 'page' : undefined}>Expertise &amp; skills</a>
           <a href="#projects" aria-current={activeSection === 'projects' ? 'page' : undefined}>Projects</a>
-          <a href="#experience" aria-current={activeSection === 'experience' ? 'page' : undefined}>Experience</a>
           <a href="#contact" aria-current={activeSection === 'contact' ? 'page' : undefined}>Contact</a>
         </nav>
         <button

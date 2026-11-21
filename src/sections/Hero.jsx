@@ -12,11 +12,11 @@ function Hero() {
           <span aria-hidden="true" className="hero-title__glitch hero-title__glitch--blue">{name}</span>
         </h1>
         <p className="hero-copy">
-          I have many years of experience building games with Unity and C#.
-          I am also highly interested in other areas of technology and software development.
+          Many years of experience programming and making games.
+          Highly interested in other areas of technology and software development.
         </p>
         <p className="hero-copy">
-          I have been studying for a bachelor's degree in Information Technology since 2024.
+          Studying for a bachelor's degree in Information Technology since 2024.
         </p>
         <p className="email-link">
           <a href="mailto:niilohanni@gmail.com">
