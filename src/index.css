@@ -2,6 +2,7 @@
 
 :root {
   --color-background: hsl(207, 54%, 36%);
+  --color-background-bottom: hsl(207, 54%, 17%);
   --color-surface: #d3f0fa;
   --color-text: #ffffff;
   --color-text-muted: #f2fbff;
@@ -38,6 +39,7 @@
 
 :root[data-theme='dark'] {
   --color-background: #07050d;
+  --color-background-bottom: #020104;
   --color-surface: #100d19;
   --color-text: #f1ecff;
   --color-text-muted: #d7d0e8;
@@ -72,7 +74,7 @@ html {
 }
 
 body {
-  background: var(--color-background);
+  background: linear-gradient(to bottom, var(--color-background), var(--color-background-bottom));
   margin: 0;
   min-width: 320px;
   overflow-x: hidden;
@@ -582,6 +584,16 @@ h1 span {
   margin-top: 2.5rem;
   position: relative;
   z-index: 1;
+}
+
+:root:not([data-theme='dark']) .hero-actions .text-link {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+:root:not([data-theme='dark']) .hero-actions .text-link:hover {
+  color: #d1efff;
 }
 
 .button {
