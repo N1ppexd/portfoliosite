@@ -16,7 +16,10 @@ function Hero() {
           Highly interested in other areas of technology and software development.
         </p>
         <p className="hero-copy">
-          Studying for a bachelor's degree in Information Technology since 2024.
+          Studying for a bachelor's degree in Information Technology since January 2024.
+        </p>
+        <p className="hero-copy">
+           I'm starting my last year of studies in January of 2027.
         </p>
         <p className="email-link">
           <a href="mailto:niilohanni@gmail.com">
